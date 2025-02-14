@@ -43,3 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UIBook
+    uniqueID: 1472789495
+    locked: 0

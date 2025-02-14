@@ -7,12 +7,13 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject opcje;
+    public GameObject options;
     public Slider volume;
     public Slider brightness;
     public Slider fov;
     public AudioSource audioSource;
     public TextMeshProUGUI notification;
+    public Canvas canvas;
 
     private void Start()
     {
@@ -31,8 +32,10 @@ public class MenuManager : MonoBehaviour
         volume.value = PlayerPrefs.GetFloat("Volume");
         brightness.value = PlayerPrefs.GetFloat("Brightness");
         fov.value = PlayerPrefs.GetFloat("Fov");
-        opcje.SetActive(false);
+        options.SetActive(false);
         audioSource = FindAnyObjectByType<AudioSource>();
+        canvas.gameObject.SetActive(false);
+        StartCoroutine(ShowText());
     }
     public void StartGame()
     {
@@ -44,7 +47,7 @@ public class MenuManager : MonoBehaviour
     }
     public void OpenOptions()
     {
-        opcje.SetActive(!opcje.activeInHierarchy);
+        options.SetActive(!options.activeInHierarchy);
     }
     public void SaveOptions()
     {
@@ -61,5 +64,10 @@ public class MenuManager : MonoBehaviour
         notification.text = "Options saved succesfully!";
         yield return new WaitForSeconds(2f);
         notification.text = "";
+    }
+    IEnumerator ShowText()
+    {
+        yield return new WaitForSeconds(2f);
+        canvas.gameObject.SetActive(true);
     }
 }
