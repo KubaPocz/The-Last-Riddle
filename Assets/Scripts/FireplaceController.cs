@@ -25,6 +25,7 @@ public class FireplaceController : MonoBehaviour
                     if (gameManager.playerInventory.ContainsKey("Garnek"))
                     {
                         gameManager.Cauldron_water.SetActive(true);
+                        gameManager.playerInventory.Remove("Cauldron");
                     }
                     else
                     {

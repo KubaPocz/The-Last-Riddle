@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 using System.Collections;
+using Newtonsoft.Json;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,15 +26,20 @@ public class GameManager : MonoBehaviour
     public Slider jasnosc;
     public Slider fov;
     public UIPlayerManager uIPlayerManager;
-    private string[] przepisy;
+    public List<Przepis> przepisy;
     public List<Texture> przepisyImage;
-    [NonSerialized] public string przepis;
+    [NonSerialized] public Przepis przepis;
     public GameObject Cauldron_water;
     public GameObject Cauldron_soup;
     public TextMeshProUGUI error;
     [NonSerialized] public Coroutine coroutineError;
-
-    void Start()
+    [NonSerialized] public bool knownRecipe = false;
+    public class Przepis
+    {
+        public string Nazwa { get; set; }
+        public Dictionary<string, int> Skladniki { get; set; }
+    }
+    void Awake()
     {
         Shuffle(przepisyImage);
         menu.SetActive(false);
@@ -40,10 +47,13 @@ public class GameManager : MonoBehaviour
         book.SetActive(false);
         SaveOptions();
         uIPlayerManager.dialog.SetActive(false);
-        przepisy = File.ReadAllLines(@"Library\Przepisy.txt");
-        przepis = przepisy[UnityEngine.Random.Range(0,przepisy.Length)];
         Cauldron_water.SetActive(false);
         Cauldron_soup.SetActive(false);
+        string json = File.ReadAllText(@"Library\Przepisy.txt");
+        przepisy = JsonConvert.DeserializeObject<List<Przepis>>(json);
+        //przepis = przepisy[UnityEngine.Random.Range(0,przepisy.Count)];
+        przepis = przepisy[8];
+        playerInventory.Add(przepis.Nazwa, 1);
     }
 
     void Update()
@@ -97,8 +107,12 @@ public class GameManager : MonoBehaviour
     public void UpdateInventory()
     {
         string eqText = "";
-        foreach( KeyValuePair<string, int> kvp in playerInventory)
+        foreach ( KeyValuePair<string, int> kvp in playerInventory)
         {
+            if (playerInventory[(kvp.Key)] == 0)
+            {
+                playerInventory.Remove(kvp.Key);
+            }
             eqText += $"{kvp.Key} - {kvp.Value}\n";
         }
         textInventory.text = eqText;

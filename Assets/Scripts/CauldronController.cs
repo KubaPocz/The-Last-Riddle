@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CauldronController : MonoBehaviour
@@ -19,9 +21,32 @@ public class CauldronController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (gameManager.playerInventory.ContainsKey("Cauldron"))
+                    bool canCook = true;
+                    foreach(var skladnik in gameManager.przepis.Skladniki)
                     {
-                        gameManager.Cauldron_water.SetActive(true);
+                        if(!gameManager.playerInventory.ContainsKey(skladnik.Key) || gameManager.playerInventory[skladnik.Key] < skladnik.Value)
+                        {
+                            canCook = false;
+                            break;
+                        }
+                        else
+                        {
+                            canCook = true;
+                        }
+                    }
+                    if (canCook)
+                    {
+                        gameManager.Cauldron_water.gameObject.SetActive(false);
+                        gameManager.Cauldron_soup.gameObject.SetActive(true);
+                        foreach (var skladnik in gameManager.przepis.Skladniki)
+                        {
+                            gameManager.playerInventory[skladnik.Key] -= skladnik.Value;
+                        }
+                    }
+                    else
+                    {
+                        gameManager.error.text = "Nie masz wszystkich potrzebnych sk³adników";
+                        StartCoroutine(gameManager.ClearError());
                     }
                 }
             }

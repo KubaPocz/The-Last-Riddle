@@ -47,8 +47,13 @@ public class UIPlayerManager : MonoBehaviour
                 switch (outlineControler.Interakcja)
                 {
                     case interaction.wez:
-                        ingredientName = hit.collider.gameObject.GetComponent<IngredientController>().ingredientName;
-                        interactionText.text = $"Weü {ingredientName}\n(E)";
+                        try
+                        {
+                            ingredientName = hit.collider.gameObject.GetComponent<IngredientController>().ingredientName;
+                        }
+                        catch { }
+                        interactionText.text = $"Weü {ingredientName ?? "Zupe"}\n(E)";
+                        ingredientName = null;
                         break;
                     case interaction.daj:
                         interactionText.text = $"Daj ZupÍ {gameManager.przepis}(E)";
@@ -67,7 +72,10 @@ public class UIPlayerManager : MonoBehaviour
                         interactionText.text = "Otworz (E)";
                         break;
                     case interaction.gotuj:
-                        interactionText.text = "Gotuj (E)";
+                        if (gameManager.knownRecipe)
+                            interactionText.text = $"Gotuj {gameManager.przepis.Nazwa} (E)";
+                        else
+                            interactionText.text = $"Gotuj ??? (E)";
                         break;
                     case interaction.czytaj:
                         interactionText.text = "Czytaj (E)";
@@ -91,17 +99,25 @@ public class UIPlayerManager : MonoBehaviour
             Vector3 direction = characterHead.transform.position - playerCamera.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5f * Time.deltaTime);
-            if (Input.GetKeyDown(KeyCode.Space) && dialogCoroutine== null)
+            if (Input.GetKeyDown(KeyCode.Space) && dialogCoroutine == null)
             {
                 dialogCoroutine = StartCoroutine(WriteDialog());
             }
         }
         IEnumerator WriteDialog()
         {
-            if (dialogGraczIndex < dialogGraczText.Length)
+            if (dialogGraczIndex < dialogGraczText.Length || dialogCharacterIndex < dialogCharacterText.Length)
             {
-                if (dialogGraczIndex <= dialogCharacterIndex)
+                if (dialogGraczIndex <= dialogCharacterIndex && dialogGraczIndex < dialogGraczText.Length)
                 {
+                    if (dialogCharacterIndex == 8)
+                    {
+                        if (!gameManager.playerInventory.ContainsKey(gameManager.przepis.Nazwa))
+                            yield break;
+                        else
+                            gameManager.playerInventory.Remove(gameManager.przepis.Nazwa);
+                    }
+
                     dialogGracz.text = "-";
                     for (int i = 0; i < dialogGraczText[dialogGraczIndex].Length; i++)
                     {
@@ -110,16 +126,23 @@ public class UIPlayerManager : MonoBehaviour
                     dialogCharacter.text = "";
                     dialogGraczIndex++;
                 }
-                else
+                else if (dialogCharacterIndex < dialogCharacterText.Length)
                 {
                     dialogCharacter.text = "-";
                     for (int i = 0; i < dialogCharacterText[dialogCharacterIndex].Length; i++)
                     {
                         dialogCharacter.text += dialogCharacterText[dialogCharacterIndex][i];
-                        yield return new WaitForSeconds(0.03f);
+                        yield return new WaitForSeconds(0.02f);
                     }
                     if (dialogCharacterIndex == 5)
-                        dialogCharacter.text += gameManager.przepis;
+                    {
+                        dialogCharacter.text += $" {gameManager.przepis.Nazwa}";
+                        gameManager.knownRecipe = true;
+                    }
+                    if (dialogCharacterIndex == 9)
+                    {
+                        //kod
+                    }
                     dialogCharacterIndex++;
                 }
             }
