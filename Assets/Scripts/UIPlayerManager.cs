@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
 using static OutlineControler;
-using static UnityEngine.GraphicsBuffer;
 
 public class UIPlayerManager : MonoBehaviour
 {
-    private Camera playerCamera;
+    public Camera playerCamera;
     private float maxDistance = 3f;
     private OutlineControler outlineControler;
     public TextMeshProUGUI interactionText;
@@ -79,12 +77,6 @@ public class UIPlayerManager : MonoBehaviour
                         break;
                     case interaction.czytaj:
                         interactionText.text = "Czytaj (E)";
-                        if (Input.GetKeyDown(KeyCode.E))
-                        {
-                            firstPersonController.enabled = false;
-                            playeranimator.enabled = false;
-                            gameManager.ShowBook(gameManager.przepisyImage[hit.collider.gameObject.GetComponent<BookController>().page1index], gameManager.przepisyImage[hit.collider.gameObject.GetComponent<BookController>().page2index]);
-                        }
                         break;
                     case interaction.uzyj:
                         interactionText.text = "U¿yj (E)";
@@ -141,7 +133,7 @@ public class UIPlayerManager : MonoBehaviour
                     }
                     if (dialogCharacterIndex == 9)
                     {
-                        //kod
+                        dialogCharacter.text += gameManager.code[1].ToUpper();
                     }
                     dialogCharacterIndex++;
                 }

@@ -1,15 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
     private Camera playerCamera;
     private float maxDistance=10f;
-    [NonSerialized]public bool canOpen = true;
-    private Animator animator;
-    // Start is called before the first frame update
+    [NonSerialized]public bool canOpen;
+    [NonSerialized] public Animator animator;
+    private void Awake()
+    {
+        canOpen = true;
+    }
     void Start()
     {
         playerCamera = Camera.main;
@@ -28,12 +29,7 @@ public class DoorController : MonoBehaviour
                 {
                     if (canOpen)
                     {
-                        Debug.Log("Drzwi otwarte");
                         animator.SetTrigger("doorSwitch");
-                    }
-                    else
-                    {
-                        Debug.Log("Drzwi zablokowane");
                     }
                 }
             }

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LockController : MonoBehaviour
@@ -9,11 +7,12 @@ public class LockController : MonoBehaviour
     public float maxDistance = 10f;
     [NonSerialized]public bool haveKey = false;
     public DoorController doorController;
+    private GameManager gameManager;
     void Start()
     {
         playerCamera = Camera.main;
+        gameManager = FindAnyObjectByType<GameManager>();
         doorController.canOpen = false;
-
     }
 
     // Update is called once per frame
@@ -26,9 +25,13 @@ public class LockController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E) && haveKey)
                 {
-                    Debug.Log("Klódka otwarta");
                     doorController.canOpen = true;
                     Destroy(gameObject);
+                }
+                else
+                {
+                    gameManager.error.text = "Drzwi zamkniête na k³ódkê";
+                    StartCoroutine(gameManager.ClearError());
                 }
             }
         }

@@ -367,6 +367,21 @@ public class FirstPersonController : MonoBehaviour
 
     void FixedUpdate()
     {
+        HandleStepOffset(); // Nowa funkcja obsługi schodów
+
+        if (playerCanMove)
+        {
+            Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            targetVelocity = transform.TransformDirection(targetVelocity) * walkSpeed;
+
+            Vector3 velocity = rb.velocity;
+            Vector3 velocityChange = (targetVelocity - velocity);
+            velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+            velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+            velocityChange.y = 0;
+
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        }
         #region Movement
 
         if (playerCanMove)
@@ -459,7 +474,26 @@ public class FirstPersonController : MonoBehaviour
             isGrounded = false;
         }
     }
+    void HandleStepOffset()
+    {
+        float stepHeight = 0.6f;  // Maksymalna wysokość schodka, który można pokonać
+        float stepRayLower = 0.1f; // Poziom dolnego raycasta
+        float stepRayUpper = stepHeight + 0.05f; // Poziom górnego raycasta
 
+        Vector3 origin = transform.position + Vector3.up * stepRayLower;
+        Vector3 upperOrigin = transform.position + Vector3.up * stepRayUpper;
+        Vector3 forward = transform.forward * 0.3f; // Długość raycasta
+
+        RaycastHit hitLower;
+        RaycastHit hitUpper;
+
+        // Sprawdzamy, czy dolny raycast wykrywa przeszkodę (stopień), a górny nie (czyli czy da się wejść)
+        if (Physics.Raycast(origin, forward, out hitLower, 0.5f) &&
+            !Physics.Raycast(upperOrigin, forward, out hitUpper, 0.5f))
+        {
+            rb.position += Vector3.up * stepHeight * Time.deltaTime * 6f; // Podnosimy gracza
+        }
+    }
     private void Jump()
     {
         // Adds force to the player rigidbody to jump
