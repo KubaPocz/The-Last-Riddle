@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
             UpdateInventory();
             inventoryAnimator.SetBool("Inventory", !inventoryAnimator.GetBool("Inventory"));
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!ending)
             {
@@ -154,17 +154,16 @@ public class GameManager : MonoBehaviour
     }
     public void ShowScroll(GameObject scroll, TextMeshProUGUI scrollText, string text)
     {
+        Debug.Log("Aasdas");
         scrollOn = true;
         scrollText.text = text;
         scroll.gameObject.SetActive(true);
         firstPersonController.enabled = false;
-        Time.timeScale = 0f;
     }
     public IEnumerator HideScroll(GameObject scroll)
     {
         scroll.gameObject.SetActive(false);
         firstPersonController.enabled = true;
-        Time.timeScale = 1f;
         yield return new WaitForSeconds(0.1f);
         scrollOn = false;
     }
@@ -173,7 +172,6 @@ public class GameManager : MonoBehaviour
         codeWindowOn = true;
         window.SetActive(true);
         firstPersonController.enabled = false;
-        Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -182,7 +180,6 @@ public class GameManager : MonoBehaviour
     {
         window.SetActive(false);
         firstPersonController.enabled = true;
-        Time.timeScale = 1f;
         yield return new WaitForSeconds(0.1f);
         codeWindowOn = false;
         Cursor.visible = false;
@@ -205,9 +202,12 @@ public class GameManager : MonoBehaviour
         book.SetActive(true);
         bookOn = true;
     }
-    public void HideBook()
+    public IEnumerator HideBook()
     {
-        book.SetActive(false);
+        book.gameObject.SetActive(false);
+        firstPersonController.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        bookOn = false;
     }
     public void Shuffle<T>(List<T> list)
     {

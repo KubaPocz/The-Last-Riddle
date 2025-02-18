@@ -367,7 +367,8 @@ public class FirstPersonController : MonoBehaviour
 
     void FixedUpdate()
     {
-        HandleStepOffset(); // Nowa funkcja obsługi schodów
+        if (Input.GetKey(KeyCode.W))
+            { HandleStepOffset(); Debug.Log("ASda"); } // Nowa funkcja obsługi schodów
 
         if (playerCanMove)
         {
@@ -476,7 +477,7 @@ public class FirstPersonController : MonoBehaviour
     }
     void HandleStepOffset()
     {
-        float stepHeight = 0.6f;  // Maksymalna wysokość schodka, który można pokonać
+        float stepHeight = 0.3f;  // Maksymalna wysokość schodka, który można pokonać
         float stepRayLower = 0.1f; // Poziom dolnego raycasta
         float stepRayUpper = stepHeight + 0.05f; // Poziom górnego raycasta
 

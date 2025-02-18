@@ -23,6 +23,10 @@ public class BookController : MonoBehaviour
                     gameManager.uIPlayerManager.playeranimator.enabled = false;
                     gameManager.ShowBook(gameManager.przepisyImage[hit.collider.gameObject.GetComponent<BookController>().page1index], gameManager.przepisyImage[hit.collider.gameObject.GetComponent<BookController>().page2index]);
                 }
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    StartCoroutine(gameManager.HideBook());
+                }
             }
         }
     }

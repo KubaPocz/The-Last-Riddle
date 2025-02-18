@@ -23,15 +23,18 @@ public class LockController : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
-                if (Input.GetKeyDown(KeyCode.E) && haveKey)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    doorController.canOpen = true;
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    gameManager.error.text = "Drzwi zamkniête na k³ódkê";
-                    StartCoroutine(gameManager.ClearError());
+                    if (haveKey)
+                    {
+                        doorController.canOpen = true;
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        gameManager.error.text = "Nie masz klucza!";
+                        gameManager.ClearError();
+                    }
                 }
             }
         }

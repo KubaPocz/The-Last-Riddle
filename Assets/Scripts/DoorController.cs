@@ -7,6 +7,7 @@ public class DoorController : MonoBehaviour
     private float maxDistance=10f;
     [NonSerialized]public bool canOpen;
     [NonSerialized] public Animator animator;
+    private GameManager gameManager;
     private void Awake()
     {
         canOpen = true;
@@ -15,6 +16,7 @@ public class DoorController : MonoBehaviour
     {
         playerCamera = Camera.main;
         animator = GetComponent<Animator>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     // Update is called once per frame
@@ -30,6 +32,11 @@ public class DoorController : MonoBehaviour
                     if (canOpen)
                     {
                         animator.SetTrigger("doorSwitch");
+                    }
+                    else
+                    {
+                        gameManager.error.text = "Drzwi zamkniête na k³ódkê";
+                        gameManager.ClearError();
                     }
                 }
             }

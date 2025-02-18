@@ -26,7 +26,7 @@ public class ScrollController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E) && gameManager.firstPersonController.enabled)
                 {
                     gameManager.ShowScroll(scroll, scrollTextTMP,scrollTextFile.text);
-                    elderScroll.SetActive(true);
+                    elderScroll.gameObject.SetActive(true);
                 }
                 if(Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled)
                 {
