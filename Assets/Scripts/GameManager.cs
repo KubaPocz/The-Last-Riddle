@@ -64,9 +64,7 @@ public class GameManager : MonoBehaviour
         Cauldron_soup.SetActive(false);
         string json = File.ReadAllText(@"Library\Przepisy.txt");
         przepisy = JsonConvert.DeserializeObject<List<Przepis>>(json);
-        //przepis = przepisy[UnityEngine.Random.Range(0,przepisy.Count)];
-        przepis = przepisy[8];
-        playerInventory.Add(przepis.Nazwa, 1);
+        przepis = przepisy[UnityEngine.Random.Range(0,przepisy.Count)];
         string[] codesText = File.ReadAllLines(@"Assets\Texts\Codes.txt");
         foreach(string codeLine in codesText)
         {

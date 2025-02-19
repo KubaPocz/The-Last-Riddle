@@ -13,9 +13,12 @@ public class MenuManager : MonoBehaviour
     public AudioSource audioSource;
     public TextMeshProUGUI notification;
     public Canvas canvas;
+    private Camera playerCamera;
+    private Animator cameraAnimator;
 
     private void Start()
     {
+        Time.timeScale = 1.0f;
         if (!PlayerPrefs.HasKey("Volume"))
         {
             PlayerPrefs.SetFloat("Volume", 0.5f);
