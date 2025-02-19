@@ -30,19 +30,21 @@ public class GameManager : MonoBehaviour
     public UIPlayerManager uIPlayerManager;
     public List<Przepis> przepisy;
     public List<Texture> przepisyImage;
-    [NonSerialized] public Przepis przepis;
     public GameObject Cauldron_water;
     public GameObject Cauldron_soup;
     public TextMeshProUGUI error;
-    [NonSerialized] public Coroutine coroutineError;
-    [NonSerialized] public bool knownRecipe = false;
-    public string[] code;
     public GameObject staminaBar;
     public GameObject endingPanel;
     public GameObject endingPanelSliding;
     public GameObject endingPanelBackground;
+    public TextMeshProUGUI codeText;
 
-
+    [NonSerialized] public List<string> codes = new List<string>();
+    [NonSerialized] public string[] code;
+    [NonSerialized] public Przepis przepis;
+    [NonSerialized] public Coroutine coroutineError;
+    [NonSerialized] public bool knownRecipe = false;
+    [NonSerialized] public List<int> knownCodeID = new List<int>();
 
     public class Przepis
     {
@@ -65,10 +67,17 @@ public class GameManager : MonoBehaviour
         //przepis = przepisy[UnityEngine.Random.Range(0,przepisy.Count)];
         przepis = przepisy[8];
         playerInventory.Add(przepis.Nazwa, 1);
-        string[] codes = File.ReadAllLines(@"Assets\Texts\Codes.txt");
-        code = codes[UnityEngine.Random.Range(0, codes.Length)].Split(" ");
-        code = new string[1] { "a" };
-        //Debug.Log($"{code[0]} {code[1]} {code[2]}");
+        string[] codesText = File.ReadAllLines(@"Assets\Texts\Codes.txt");
+        foreach(string codeLine in codesText)
+        {
+            foreach(string codePart in codeLine.Split(" "))
+            {
+                codes.Add(codePart);
+            }
+        }
+        Shuffle(codes);
+        code = new string[] { codes[0], codes[1], codes[2] };
+        codeText.text = "Znajdü instrukcje";
     }
 
     void Update()
@@ -154,7 +163,6 @@ public class GameManager : MonoBehaviour
     }
     public void ShowScroll(GameObject scroll, TextMeshProUGUI scrollText, string text)
     {
-        Debug.Log("Aasdas");
         scrollOn = true;
         scrollText.text = text;
         scroll.gameObject.SetActive(true);
@@ -167,11 +175,40 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         scrollOn = false;
     }
+    public void ShowBeginningScroll(GameObject scroll, TextMeshProUGUI scrollText, string text)
+    {
+        scrollOn = true;
+        scrollText.text = text;
+        scroll.gameObject.SetActive(true);
+        firstPersonController.enabled = false;
+    }
+    public IEnumerator HideBeginningScroll(GameObject scroll)
+    {
+        scroll.gameObject.SetActive(false);
+        firstPersonController.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        scrollOn = false;
+    }
+    public void ShowScrollElder(GameObject scroll, TextMeshProUGUI scrollText, string text)
+    {
+        scrollOn = true;
+        scrollText.text = text;
+        scroll.gameObject.SetActive(true);
+        firstPersonController.enabled = false;
+    }
+    public IEnumerator HideScrollElder(GameObject scroll)
+    {
+        scroll.gameObject.SetActive(false);
+        firstPersonController.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        scrollOn = false;
+    }
     public void ShowEndCodeWindow(GameObject window)
     {
         codeWindowOn = true;
         window.SetActive(true);
         firstPersonController.enabled = false;
+        Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -180,6 +217,7 @@ public class GameManager : MonoBehaviour
     {
         window.SetActive(false);
         firstPersonController.enabled = true;
+        Time.timeScale = 1f;
         yield return new WaitForSeconds(0.1f);
         codeWindowOn = false;
         Cursor.visible = false;
@@ -221,7 +259,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator ClearError()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         error.text = "";
     }
     public void Ending()
@@ -237,7 +275,21 @@ public class GameManager : MonoBehaviour
         anim1.SetTrigger("Ending");
         anim2.SetTrigger("Ending");
         anim3.SetTrigger("Ending");
-
     }
-
+    public void UpdateCodeText(int codeID)
+    {
+        knownCodeID.Add(codeID);
+        codeText.text = "Szyfr: ";
+        for (int i = 0;i<3;i++)
+        {
+            if (knownCodeID.Contains(i))
+            {
+                codeText.text += code[i]+" ";
+            }
+            else
+            {
+                codeText.text += "_ ";
+            }
+        }
+    }
 }

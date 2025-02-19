@@ -368,7 +368,7 @@ public class FirstPersonController : MonoBehaviour
     void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.W))
-            { HandleStepOffset(); Debug.Log("ASda"); } // Nowa funkcja obsługi schodów
+            { HandleStepOffset();} // Nowa funkcja obsługi schodów
 
         if (playerCanMove)
         {

@@ -30,8 +30,8 @@ public class UIPlayerManager : MonoBehaviour
     {
         playerCamera = Camera.main;
         firstPersonController = GetComponent<FirstPersonController>();
-        dialogGraczText = File.ReadAllLines(@"Library\Dialogi\dialogGracz.txt");
-        dialogCharacterText = File.ReadAllLines(@"Library\Dialogi\dialogCharacter.txt");
+        dialogGraczText = File.ReadAllLines(@"Library\Dialogi\Player.txt");
+        dialogCharacterText = File.ReadAllLines(@"Library\Dialogi\Character.txt");
         dialog.SetActive(false);
     }
     void Update()
@@ -134,6 +134,7 @@ public class UIPlayerManager : MonoBehaviour
                     if (dialogCharacterIndex == 9)
                     {
                         dialogCharacter.text += gameManager.code[1].ToUpper();
+                        gameManager.UpdateCodeText(1);
                     }
                     dialogCharacterIndex++;
                 }

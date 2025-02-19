@@ -5,7 +5,7 @@ public class DoorController : MonoBehaviour
 {
     private Camera playerCamera;
     private float maxDistance=10f;
-    [NonSerialized]public bool canOpen;
+    [NonSerialized] public bool canOpen;
     [NonSerialized] public Animator animator;
     private GameManager gameManager;
     private void Awake()
@@ -33,10 +33,10 @@ public class DoorController : MonoBehaviour
                     {
                         animator.SetTrigger("doorSwitch");
                     }
-                    else
+                    else if(gameObject.name != "Door_Middle_Exit")
                     {
-                        gameManager.error.text = "Drzwi zamkniête na k³ódkê";
-                        gameManager.ClearError();
+                        gameManager.error.text = "Drzwi zamkniête";
+                        StartCoroutine(gameManager.ClearError());
                     }
                 }
             }

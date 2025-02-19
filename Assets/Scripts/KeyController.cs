@@ -7,10 +7,12 @@ public class KeyController : MonoBehaviour
     private Camera playerCamera;
     public float maxDistance = 10f;
     public LockController lockController;
+    private GameManager gameManager;
 
     void Start()
     {
         playerCamera = Camera.main;
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void Update()
@@ -24,9 +26,7 @@ public class KeyController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    Debug.Log("Zdobyles klucz");
                     lockController.haveKey = true;
-                    Destroy(gameObject);
                 }
             }
         }
