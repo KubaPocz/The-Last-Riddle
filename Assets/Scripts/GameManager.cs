@@ -3,11 +3,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.IO;
 using System;
 using System.Collections;
 using Newtonsoft.Json;
-using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -60,9 +58,9 @@ public class GameManager : MonoBehaviour
         public string Description { get; set; }
         public Dictionary<string, int> Ingredients { get; set; }
     }
+
     void Start()
-    {
-        DontDestroyOnLoad(this);
+    {      
         menu.SetActive(false);
         opcje.SetActive(false);
         book.SetActive(false);
@@ -119,12 +117,6 @@ public class GameManager : MonoBehaviour
                     Cursor.lockState = CursorLockMode.None;
                 }
                 inventoryAnimator.SetBool("Inventory", false);
-                if (book.activeInHierarchy)
-                {
-                    HideBook();
-                    firstPersonController.enabled = true;
-                    uIPlayerManager.playeranimator.enabled = true;
-                }
                 if (uIPlayerManager.setTarget == true)
                 {
                     uIPlayerManager.setTarget = false;
@@ -248,6 +240,7 @@ public class GameManager : MonoBehaviour
     }
     public void Exit()
     {
+        Destroy(this);
         SceneManager.LoadSceneAsync(0);
     }
     public void ShowBook(int page1, int page2)

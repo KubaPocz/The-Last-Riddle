@@ -16,7 +16,7 @@ public class ScrollElderController : MonoBehaviour
     private GameManager gameManager;
     private void Awake()
     {
-        elderScroll.SetActive(false);
+        elderScroll.SetActive(false);        
     }
     void Start()
     {

@@ -6,7 +6,6 @@ public class BookController : MonoBehaviour
     public int page1index;
     public int page2index;
     private GameManager gameManager;
-
     private void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();

@@ -15,7 +15,6 @@ public class BeginningScroll : MonoBehaviour
         playerCamera = Camera.main;
         gameManager = FindAnyObjectByType<GameManager>();
         TextAsset instrictionsFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Scrolls/Notes/Instructions");
-
         instructions = instrictionsFilePath.text;
     }
 
