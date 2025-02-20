@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class EndCodeController : MonoBehaviour
 {
@@ -27,11 +28,18 @@ public class EndCodeController : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
-                if (Input.GetKeyDown(KeyCode.E) && gameManager.firstPersonController.enabled && codeWindow != null)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    gameManager.ShowEndCodeWindow(codeWindow);
+                    if (gameManager.firstPersonController.enabled && codeWindow != null)
+                    {
+                        gameManager.ShowEndCodeWindow(codeWindow);
+                    }
+                    else if (!gameManager.firstPersonController.enabled)
+                    {
+                        StartCoroutine(gameManager.HideEndCodeWindow(codeWindow));
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.Escape)&& !gameManager.firstPersonController.enabled)
+                else if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled && gameManager.codeWindowOn)
                 {
                     StartCoroutine(gameManager.HideEndCodeWindow(codeWindow));
                 }
@@ -57,7 +65,6 @@ public class EndCodeController : MonoBehaviour
     }
     public void VerifyCode()
     {
-        Debug.Log(codeInput.text);
         if (CheckCode())
         {
             doorController.canOpen = true;
@@ -68,7 +75,7 @@ public class EndCodeController : MonoBehaviour
         }
         else
         {
-            gameManager.error.text = "Nieprawid³owy kod";
+            gameManager.error.text = LocalizationManager.Instance.GetText("WrongCode");
             StartCoroutine(gameManager.ClearError());
         }
     }

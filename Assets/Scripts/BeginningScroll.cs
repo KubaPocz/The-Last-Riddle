@@ -14,8 +14,9 @@ public class BeginningScroll : MonoBehaviour
     {
         playerCamera = Camera.main;
         gameManager = FindAnyObjectByType<GameManager>();
-        string instrictionsFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Scrolls", "Notes", "Instructions.txt");
-        instructions = File.ReadAllText(instrictionsFilePath);
+        TextAsset instrictionsFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Scrolls/Notes/Instructions");
+
+        instructions = instrictionsFilePath.text;
     }
 
     private void Update()
@@ -25,18 +26,28 @@ public class BeginningScroll : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
-                if (Input.GetKeyDown(KeyCode.E) && gameManager.firstPersonController.enabled)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    gameManager.ShowBeginningScroll(scroll, scrollText, instructions);
-                    gameManager.codeText.text = "Szyfr: _ _ _";
+                    if (gameManager.firstPersonController.enabled)
+                    {
+                        gameManager.ShowBeginningScroll(scroll, scrollText, instructions);
+                        if (gameManager.codeText.text.Contains(LocalizationManager.Instance.GetText("FindInstructions")))
+                        {
+                            gameManager.codeText.text = $"{LocalizationManager.Instance.GetText("Cipher")}: _ _ _";
+                        }
+                    }
+                    else if (!gameManager.firstPersonController.enabled)
+                    {
+                        StartCoroutine(gameManager.HideBeginningScroll(scroll));
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled)
+                else if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled && gameManager.scrollOn)
                 {
                     StartCoroutine(gameManager.HideBeginningScroll(scroll));
                 }
+
             }
 
         }
-
     }
 }

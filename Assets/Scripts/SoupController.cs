@@ -17,7 +17,7 @@ public class SoupController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    gameManager.playerInventory.Add(gameManager.przepis.Nazwa, 1);
+                    gameManager.playerInventory.Add(gameManager.przepis.Name, 1);
                     gameObject.SetActive(false);
                 }
             }

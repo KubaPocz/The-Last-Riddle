@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LockController : MonoBehaviour
@@ -28,6 +29,7 @@ public class LockController : MonoBehaviour
                     if (haveKey)
                     {
                         doorController.canOpen = true;
+                        gameManager.playerInventory.Remove(LocalizationManager.Instance.GetText("DungeonKey"));
                         Destroy(gameObject);
                     }
                     else

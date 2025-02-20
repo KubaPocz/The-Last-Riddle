@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Bajeczny Zmierzch",
+        "description": "Lekka, pomidorowo-marchewkowa kompozycja z delikatnym mięsem z kurczaka. Jej ciepła barwa przywodzi na myśl niebo o zmierzchu, a smak jest przyjemnie słodkawo-kwaśny.",
+        "ingredients": {
+            "Udko z kurczaka": 1,
+            "Pomidor": 2,
+            "Marchewka": 1
+        }
+    },
+    {
+        "name": "Czarny Żar",
+        "description": "Gęsta, rozgrzewająca zupa mięsno-warzywna z intensywną nutą czosnku. Dodatek mglistego korzenia wzmaga głęboki, lekko gorzkawy posmak i nadaje ciemnej barwy.",
+        "ingredients": {
+            "Stek": 1,
+            "Ziemniak": 2,
+            "Czosnek": 1,
+            "Mglisty korzeń": 1
+        }
+    },
+    {
+        "name": "Koronna Esencja Jesieni",
+        "description": "Gładki, kremowy wywar z jesiennych warzyw, wzmocniony magiczną „wodną iskrą natury”, która nadaje mu orzeźwiającego finiszu i delikatnego blasku.",
+        "ingredients": {
+            "Dynia": 1,
+            "Ziemniak": 2,
+            "Marchewka": 1,
+            "Wodna iskra natury": 1
+        }
+    },
+    {
+        "name": "Kruczy Szept",
+        "description": "Mroczna, mięsna zupa pełna głębokiego smaku. Mówi się, że mglisty korzeń sprawia, iż szept kruków można usłyszeć tuż za oknem po jej skosztowaniu.",
+        "ingredients": {
+            "Stek": 1,
+            "Udko z kurczaka": 1,
+            "Mglisty korzeń": 1
+        }
+    },
+    {
+        "name": "Księżycowa Przystań",
+        "description": "Delikatna, słodkawa zupa z mięsnej bazy. Wężowe ziele dodaje jej subtelnego, mistycznego aromatu, który ponoć rozjaśnia umysł w blasku księżyca.",
+        "ingredients": {
+            "Udko z kurczaka": 1,
+            "Dynia": 1,
+            "Wężowe ziele": 1
+        }
+    },
+    {
+        "name": "Obfitość Bursztynowej Doliny",
+        "description": "Pożywna, słoneczna zupa o bursztynowej barwie. Wężowe ziele nadaje jej delikatnego, ziołowego posmaku i podobno wspomaga odporność w chłodniejsze dni.",
+        "ingredients": {
+            "Dynia": 1,
+            "Marchewka": 1,
+            "Ziemniak": 2,
+            "Wężowe ziele": 1
+        }
+    },
+    {
+        "name": "Ognista Pieśń",
+        "description": "Wyrazista, lekko pikantna kombinacja mięsa, warzyw i magicznej esencji, która wzmacnia smak i nadaje ogniście czerwonego odcienia. Idealna, by dodać energii przed walką.",
+        "ingredients": {
+            "Stek": 1,
+            "Dynia": 1,
+            "Pomidor": 1,
+            "Czosnek": 1,
+            "Wodna iskra natury": 1
+        }
+    },
+    {
+        "name": "Rubinowe Westchnienie",
+        "description": "Intensywnie czerwona i lekko słodkawa, z subtelnym ziołowym akcentem wężowego ziela. Delikatna nuta czosnku podkreśla wyrazisty smak pomidorów, dając zupę o rubinowym blasku.",
+        "ingredients": {
+            "Pomidor": 2,
+            "Marchewka": 1,
+            "Wężowe ziele": 1,
+            "Czosnek": 1
+        }
+    },
+    {
+        "name": "Senna Mgła",
+        "description": "Gęsta, sycąca zupa ziemniaczana z mięsem. Mglisty korzeń nadaje jej mleczno-szary odcień i lekko usypiający aromat, który podobno pomaga zapadać w głęboki sen.",
+        "ingredients": {
+            "Ziemniak": 2,
+            "Stek": 1,
+            "Mglisty korzeń": 1
+        }
+    },
+    {
+        "name": "Szkarłatne Ukojenie",
+        "description": "Klarowna zupa na bazie pomidorów, z lekko słodkim posmakiem marchewki i delikatnym aromatem czosnku. Działa uspokajająco na zmysły, a jej barwa przywodzi na myśl zachód słońca.",
+        "ingredients": {
+            "Pomidor": 2,
+            "Marchewka": 1,
+            "Czosnek": 1
+        }
+    }
+]

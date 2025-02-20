@@ -9,7 +9,7 @@ public class IngredientController : MonoBehaviour
     public GameManager gameManager;
     public string ingredientName;
     public bool znika;
-    public TextMeshProUGUI ekwipunekPowiadomenia;
+    public TextMeshProUGUI inventoryNotifications;
     private Coroutine coroutineNotifications;
     public Animator notificationsAnimator;
 
@@ -26,13 +26,13 @@ public class IngredientController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (gameManager.playerInventory.ContainsKey(ingredientName))
+                    if (gameManager.playerInventory.ContainsKey(LocalizationManager.Instance.GetText(ingredientName)))
                     {
-                        if (gameManager.playerInventory[ingredientName] >= 5)
+                        if (gameManager.playerInventory[LocalizationManager.Instance.GetText(ingredientName)] >= 5)
                         {
                             if(gameManager.coroutineError != null)
                                 StopCoroutine(gameManager.coroutineError);
-                            gameManager.error.text = $"Nie mo¿esz wzi¹œæ wiêcej {ingredientName}";
+                            gameManager.error.text = $"Nie mo¿esz wzi¹œæ wiêcej {LocalizationManager.Instance.GetText(ingredientName)}";
                             gameManager.coroutineError = StartCoroutine(gameManager.ClearError());
                         }
                         else
@@ -41,8 +41,8 @@ public class IngredientController : MonoBehaviour
                                 StopCoroutine(coroutineNotifications);
                             notificationsAnimator.SetBool("Powiadomienia", true);
                             coroutineNotifications = StartCoroutine(HideNotifications());
-                            gameManager.playerInventory[ingredientName] += 1;
-                            ekwipunekPowiadomenia.text += $"+1 {ingredientName}\n";
+                            gameManager.playerInventory[LocalizationManager.Instance.GetText(ingredientName)] += 1;
+                            inventoryNotifications.text += $"+1 {LocalizationManager.Instance.GetText(ingredientName)}\n";
                         }
                     }
                     else
@@ -51,8 +51,8 @@ public class IngredientController : MonoBehaviour
                             StopCoroutine(coroutineNotifications);
                         notificationsAnimator.SetBool("Powiadomienia", true);
                         coroutineNotifications = StartCoroutine(HideNotifications());
-                        gameManager.playerInventory.Add(ingredientName, 1);
-                        ekwipunekPowiadomenia.text += $"+1 {ingredientName}\n";
+                        gameManager.playerInventory.Add(LocalizationManager.Instance.GetText(ingredientName), 1);
+                        inventoryNotifications.text += $"+1 {LocalizationManager.Instance.GetText(ingredientName)}\n";
                     }
                     if (znika)
                     {
@@ -70,7 +70,7 @@ public class IngredientController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         notificationsAnimator.SetBool("Powiadomienia", false);
         yield return new WaitForSeconds(1f);
-        ekwipunekPowiadomenia.text = "";
+        inventoryNotifications.text = "";
         coroutineNotifications = null;
     }
     IEnumerator DestroyObject()

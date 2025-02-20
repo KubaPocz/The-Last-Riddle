@@ -32,13 +32,20 @@ public class ScrollElderController : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
-                if (Input.GetKeyDown(KeyCode.E) && gameManager.firstPersonController.enabled)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    scrollElderImage.sprite = scrollNumber;
-                    gameManager.UpdateCodeText(codeID-1);
-                    gameManager.ShowScrollElder(elderScroll, scrollElderTextTMP, gameManager.code[codeID-1]);
+                    if (gameManager.firstPersonController.enabled)
+                    {
+                        scrollElderImage.sprite = scrollNumber;
+                        gameManager.UpdateCodeText(codeID - 1);
+                        gameManager.ShowScrollElder(elderScroll, scrollElderTextTMP, gameManager.code[codeID - 1]);
+                    }
+                    else if (!gameManager.firstPersonController.enabled)
+                    {
+                        StartCoroutine(gameManager.HideScrollElder(elderScroll));
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled)
+                else if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled && gameManager.scrollOn)
                 {
                     StartCoroutine(gameManager.HideScrollElder(elderScroll));
                 }

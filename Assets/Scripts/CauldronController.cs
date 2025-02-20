@@ -18,7 +18,7 @@ public class CauldronController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     bool canCook = true;
-                    foreach(var skladnik in gameManager.przepis.Skladniki)
+                    foreach(var skladnik in gameManager.przepis.Ingredients)
                     {
                         if(!gameManager.playerInventory.ContainsKey(skladnik.Key) || gameManager.playerInventory[skladnik.Key] < skladnik.Value)
                         {
@@ -34,7 +34,7 @@ public class CauldronController : MonoBehaviour
                     {
                         gameManager.Cauldron_water.gameObject.SetActive(false);
                         gameManager.Cauldron_soup.gameObject.SetActive(true);
-                        foreach (var skladnik in gameManager.przepis.Skladniki)
+                        foreach (var skladnik in gameManager.przepis.Ingredients)
                         {
                             gameManager.playerInventory[skladnik.Key] -= skladnik.Value;
                         }

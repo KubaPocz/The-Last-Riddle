@@ -7,19 +7,28 @@ using System.IO;
 using System;
 using System.Collections;
 using Newtonsoft.Json;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
     public Dictionary<string, int> playerInventory = new Dictionary<string, int>();
-    public TextMeshProUGUI textInventory;
+    [Header("Inventory")]
+    public TextMeshProUGUI inventoryName;
+    public TextMeshProUGUI inventoryContent;
     public Animator inventoryAnimator;
     public FirstPersonController firstPersonController;
     public new ParticleSystem particleSystem;
     public GameObject menu;
     public GameObject opcje;
     public GameObject book;
-    public RawImage bookPage1;
-    public RawImage bookPage2;
+    [Header ("Book-Page1")]
+    public TextMeshProUGUI name1;
+    public TextMeshProUGUI description1;
+    public TextMeshProUGUI ingredients1;
+    [Header("Book-Page2")]
+    public TextMeshProUGUI name2;
+    public TextMeshProUGUI description2;
+    public TextMeshProUGUI ingredients2;
     public bool bookOn = false;
     public bool scrollOn = false;
     public bool codeWindowOn = false;
@@ -29,7 +38,6 @@ public class GameManager : MonoBehaviour
     public Slider fov;
     public UIPlayerManager uIPlayerManager;
     public List<Przepis> przepisy;
-    public List<Texture> przepisyImage;
     public GameObject Cauldron_water;
     public GameObject Cauldron_soup;
     public TextMeshProUGUI error;
@@ -48,13 +56,13 @@ public class GameManager : MonoBehaviour
 
     public class Przepis
     {
-        public string Nazwa { get; set; }
-        public Dictionary<string, int> Skladniki { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Dictionary<string, int> Ingredients { get; set; }
     }
-    void Awake()
+    void Start()
     {
         DontDestroyOnLoad(this);
-        Shuffle(przepisyImage);
         menu.SetActive(false);
         opcje.SetActive(false);
         book.SetActive(false);
@@ -63,13 +71,13 @@ public class GameManager : MonoBehaviour
         uIPlayerManager.dialog.SetActive(false);
         Cauldron_water.SetActive(false);
         Cauldron_soup.SetActive(false);
-        string recipesFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Przepisy.txt");
-        string json = File.ReadAllText(recipesFilePath);
+        TextAsset recipesFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Recipes");
+        string json = recipesFilePath.text;
         przepisy = JsonConvert.DeserializeObject<List<Przepis>>(json);
         przepis = przepisy[UnityEngine.Random.Range(0,przepisy.Count)];
-        string codesFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Codes.txt");
-        string[] codesText = File.ReadAllLines(codesFilePath);
-        foreach(string codeLine in codesText)
+        TextAsset codesFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Codes");
+        string[] codesText = codesFilePath.text.Split("\n");
+        foreach (string codeLine in codesText)
         {
             foreach(string codePart in codeLine.Split(" "))
             {
@@ -78,7 +86,7 @@ public class GameManager : MonoBehaviour
         }
         Shuffle(codes);
         code = new string[] { codes[0], codes[1], codes[2] };
-        codeText.text = "Znajdü instrukcje";
+        codeText.text = LocalizationManager.Instance.GetText("FindInstructions");
     }
 
     void Update()
@@ -144,6 +152,7 @@ public class GameManager : MonoBehaviour
     public void UpdateInventory()
     {
         string eqText = "";
+        inventoryName.text = LocalizationManager.Instance.GetText("Inventory");
         foreach ( KeyValuePair<string, int> kvp in playerInventory)
         {
             if (playerInventory[(kvp.Key)] == 0)
@@ -152,7 +161,7 @@ public class GameManager : MonoBehaviour
             }
             eqText += $"{kvp.Key} - {kvp.Value}\n";
         }
-        textInventory.text = eqText;
+        inventoryContent.text = eqText;
     }
     public void ShowOptions()
     {
@@ -241,10 +250,22 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(0);
     }
-    public void ShowBook(Texture page1, Texture page2)
+    public void ShowBook(int page1, int page2)
     {
-        bookPage1.texture = page1;
-        bookPage2.texture = page2;
+        name1.text = przepisy[page1].Name;
+        description1.text = przepisy[page1].Description;
+        ingredients1.text = "";
+        foreach (var ingredient in przepisy[page1].Ingredients)
+        {
+            ingredients1.text += $"{ingredient.Key} - {ingredient.Value}\n";
+        }
+        name2.text = przepisy[page2].Name;
+        description2.text = przepisy[page2].Description;
+        ingredients2.text = "";
+        foreach (var ingredient in przepisy[page2].Ingredients)
+        {
+            ingredients2.text += $"{ingredient.Key} - {ingredient.Value}\n";
+        }
         book.SetActive(true);
         bookOn = true;
         firstPersonController.enabled = false;
@@ -293,7 +314,7 @@ public class GameManager : MonoBehaviour
     public void UpdateCodeText(int codeID)
     {
         knownCodeID.Add(codeID);
-        codeText.text = "Szyfr: ";
+        codeText.text = $"{LocalizationManager.Instance.GetText("Cipher")}: ";
         for (int i = 0;i<3;i++)
         {
             if (knownCodeID.Contains(i))

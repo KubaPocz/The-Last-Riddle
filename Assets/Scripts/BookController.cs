@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BookController : MonoBehaviour
 {
@@ -19,9 +20,16 @@ public class BookController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    gameManager.ShowBook(gameManager.przepisyImage[hit.collider.gameObject.GetComponent<BookController>().page1index], gameManager.przepisyImage[hit.collider.gameObject.GetComponent<BookController>().page2index]);
+                    if (gameManager.firstPersonController.enabled)
+                    {
+                        gameManager.ShowBook(page1index, page2index);
+                    }
+                    else if (!gameManager.firstPersonController.enabled)
+                    {
+                        StartCoroutine(gameManager.HideBook());
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.Escape))
+                else if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled && gameManager.bookOn)
                 {
                     StartCoroutine(gameManager.HideBook());
                 }

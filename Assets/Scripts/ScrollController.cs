@@ -1,10 +1,11 @@
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScrollController : MonoBehaviour
 {
-    private string scrollTextFile;
+    private TextAsset scrollTextFile;
     private Camera playerCamera;
     private string text;
     public int hintID;
@@ -18,8 +19,8 @@ public class ScrollController : MonoBehaviour
         playerCamera = Camera.main;
         scroll.gameObject.SetActive(false);
         elderScroll.SetActive(false);
-        scrollTextFile = Path.Combine(Application.streamingAssetsPath, "Texts","Hints", $"Hint{hintID}.txt");
-        text = File.ReadAllText(scrollTextFile);
+        scrollTextFile = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Hints/Hint{hintID}");
+        text = scrollTextFile.text;
     }
     private void Update()
     {
@@ -28,12 +29,19 @@ public class ScrollController : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
-                if (Input.GetKeyDown(KeyCode.E) && gameManager.firstPersonController.enabled)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    gameManager.ShowScroll(scroll, scrollTextTMP,text);
-                    elderScroll.gameObject.SetActive(true);
+                    if (gameManager.firstPersonController.enabled)
+                    {
+                        gameManager.ShowScroll(scroll, scrollTextTMP, text);
+                        elderScroll.gameObject.SetActive(true);
+                    }
+                    else if (!gameManager.firstPersonController.enabled)
+                    {
+                        StartCoroutine(gameManager.HideScroll(scroll));
+                    }
                 }
-                if(Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled)
+                else if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled && gameManager.scrollOn)
                 {
                     StartCoroutine(gameManager.HideScroll(scroll));
                 }

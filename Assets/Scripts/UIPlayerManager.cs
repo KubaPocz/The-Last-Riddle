@@ -15,11 +15,11 @@ public class UIPlayerManager : MonoBehaviour
     private FirstPersonController firstPersonController;
     public bool setTarget = false;
     public GameObject dialog;
-    public TextMeshProUGUI dialogGracz;
-    private string[] dialogGraczText;
+    public TextMeshProUGUI dialogPlayer;
+    private string[] dialogPlayerText;
     public TextMeshProUGUI dialogCharacter;
     private string[] dialogCharacterText;
-    private int dialogGraczIndex = 0;
+    private int dialogPlayerIndex = 0;
     private int dialogCharacterIndex = 0;
     private Coroutine dialogCoroutine;
     public Animator playeranimator;
@@ -30,10 +30,11 @@ public class UIPlayerManager : MonoBehaviour
     {
         playerCamera = Camera.main;
         firstPersonController = GetComponent<FirstPersonController>();
-        string dialogPlayerFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Dialogi", "Player.txt");
-        dialogGraczText = File.ReadAllLines(dialogPlayerFilePath);
-        string dialogCharacterFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Dialogi", "Character.txt");
-        dialogCharacterText = File.ReadAllLines(dialogCharacterFilePath);
+        //string dialogPlayerFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Dialogues", "Player.txt");
+        TextAsset dialogPlayerFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Dialogues/Player");
+        dialogPlayerText = dialogPlayerFilePath.text.Split("\n");
+        TextAsset dialogCharacterFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Dialogues/Character");
+        dialogCharacterText = dialogCharacterFilePath.text.Split("\n");
         dialog.SetActive(false);
     }
     void Update()
@@ -52,14 +53,14 @@ public class UIPlayerManager : MonoBehaviour
                             ingredientName = hit.collider.gameObject.GetComponent<IngredientController>().ingredientName;
                         }
                         catch { }
-                        interactionText.text = $"WeŸ {ingredientName ?? "Zupe"}\n(E)";
+                        interactionText.text = $"{LocalizationManager.Instance.GetText("Take")} {LocalizationManager.Instance.GetText(ingredientName) ?? LocalizationManager.Instance.GetText("Soup")}\n(E)";
                         ingredientName = null;
                         break;
                     case interaction.daj:
-                        interactionText.text = $"Daj Zupê {gameManager.przepis}(E)";
+                        interactionText.text = $"{LocalizationManager.Instance.GetText("GiveSoup")} {gameManager.przepis}(E)";
                         break;
                     case interaction.porozmawiaj:
-                        interactionText.text = "Porozmawiaj (E)";
+                        interactionText.text = $"{LocalizationManager.Instance.GetText("Talk")} (E)";
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             firstPersonController.enabled = false;
@@ -69,19 +70,19 @@ public class UIPlayerManager : MonoBehaviour
                         }
                         break;
                     case interaction.otworz:
-                        interactionText.text = "Otworz (E)";
+                        interactionText.text = $"{LocalizationManager.Instance.GetText("Open")} (E)";
                         break;
                     case interaction.gotuj:
                         if (gameManager.knownRecipe)
-                            interactionText.text = $"Gotuj {gameManager.przepis.Nazwa} (E)";
+                            interactionText.text = $"{LocalizationManager.Instance.GetText("Cook")} {gameManager.przepis.Name} (E)";
                         else
-                            interactionText.text = $"Gotuj ??? (E)";
+                            interactionText.text = $"{LocalizationManager.Instance.GetText("Cook")} ??? (E)";
                         break;
                     case interaction.czytaj:
-                        interactionText.text = "Czytaj (E)";
+                        interactionText.text = $"{LocalizationManager.Instance.GetText("Read")} (E)";
                         break;
                     case interaction.uzyj:
-                        interactionText.text = "U¿yj (E)";
+                        interactionText.text = $"{LocalizationManager.Instance.GetText("Use")} (E)";
                         break;
                 }
             }
@@ -100,25 +101,25 @@ public class UIPlayerManager : MonoBehaviour
         }
         IEnumerator WriteDialog()
         {
-            if (dialogGraczIndex < dialogGraczText.Length || dialogCharacterIndex < dialogCharacterText.Length)
+            if (dialogPlayerIndex < dialogPlayerText.Length || dialogCharacterIndex < dialogCharacterText.Length)
             {
-                if (dialogGraczIndex <= dialogCharacterIndex && dialogGraczIndex < dialogGraczText.Length)
+                if (dialogPlayerIndex <= dialogCharacterIndex && dialogPlayerIndex < dialogPlayerText.Length)
                 {
                     if (dialogCharacterIndex == 8)
                     {
-                        if (!gameManager.playerInventory.ContainsKey(gameManager.przepis.Nazwa))
+                        if (!gameManager.playerInventory.ContainsKey(gameManager.przepis.Name))
                             yield break;
                         else
-                            gameManager.playerInventory.Remove(gameManager.przepis.Nazwa);
+                            gameManager.playerInventory.Remove(gameManager.przepis.Name);
                     }
 
-                    dialogGracz.text = "-";
-                    for (int i = 0; i < dialogGraczText[dialogGraczIndex].Length; i++)
+                    dialogPlayer.text = "-";
+                    for (int i = 0; i < dialogPlayerText[dialogPlayerIndex].Length; i++)
                     {
-                        dialogGracz.text += dialogGraczText[dialogGraczIndex][i];
+                        dialogPlayer.text += dialogPlayerText[dialogPlayerIndex][i];
                     }
                     dialogCharacter.text = "";
-                    dialogGraczIndex++;
+                    dialogPlayerIndex++;
                 }
                 else if (dialogCharacterIndex < dialogCharacterText.Length)
                 {
@@ -130,7 +131,7 @@ public class UIPlayerManager : MonoBehaviour
                     }
                     if (dialogCharacterIndex == 5)
                     {
-                        dialogCharacter.text += $" {gameManager.przepis.Nazwa}";
+                        dialogCharacter.text += $" {gameManager.przepis.Name}";
                         gameManager.knownRecipe = true;
                     }
                     if (dialogCharacterIndex == 9)
