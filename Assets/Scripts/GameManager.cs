@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     }
     void Awake()
     {
+        DontDestroyOnLoad(this);
         Shuffle(przepisyImage);
         menu.SetActive(false);
         opcje.SetActive(false);
@@ -62,10 +63,12 @@ public class GameManager : MonoBehaviour
         uIPlayerManager.dialog.SetActive(false);
         Cauldron_water.SetActive(false);
         Cauldron_soup.SetActive(false);
-        string json = File.ReadAllText(@"Library\Przepisy.txt");
+        string recipesFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Przepisy.txt");
+        string json = File.ReadAllText(recipesFilePath);
         przepisy = JsonConvert.DeserializeObject<List<Przepis>>(json);
         przepis = przepisy[UnityEngine.Random.Range(0,przepisy.Count)];
-        string[] codesText = File.ReadAllLines(@"Assets\Texts\Codes.txt");
+        string codesFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Codes.txt");
+        string[] codesText = File.ReadAllLines(codesFilePath);
         foreach(string codeLine in codesText)
         {
             foreach(string codePart in codeLine.Split(" "))
@@ -131,6 +134,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 menu.SetActive(false);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 SceneManager.LoadSceneAsync(0);
             }
         }
@@ -165,11 +170,13 @@ public class GameManager : MonoBehaviour
         scrollText.text = text;
         scroll.gameObject.SetActive(true);
         firstPersonController.enabled = false;
+        Time.timeScale = 0f;
     }
     public IEnumerator HideScroll(GameObject scroll)
     {
         scroll.gameObject.SetActive(false);
         firstPersonController.enabled = true;
+        Time.timeScale = 1.0f;
         yield return new WaitForSeconds(0.1f);
         scrollOn = false;
     }
@@ -179,11 +186,13 @@ public class GameManager : MonoBehaviour
         scrollText.text = text;
         scroll.gameObject.SetActive(true);
         firstPersonController.enabled = false;
+        Time.timeScale = 0f;
     }
     public IEnumerator HideBeginningScroll(GameObject scroll)
     {
         scroll.gameObject.SetActive(false);
         firstPersonController.enabled = true;
+        Time.timeScale = 1.0f;
         yield return new WaitForSeconds(0.1f);
         scrollOn = false;
     }
@@ -193,11 +202,13 @@ public class GameManager : MonoBehaviour
         scrollText.text = text;
         scroll.gameObject.SetActive(true);
         firstPersonController.enabled = false;
+        Time.timeScale = 0f;
     }
     public IEnumerator HideScrollElder(GameObject scroll)
     {
         scroll.gameObject.SetActive(false);
         firstPersonController.enabled = true;
+        Time.timeScale = 1.0f;
         yield return new WaitForSeconds(0.1f);
         scrollOn = false;
     }
@@ -220,7 +231,6 @@ public class GameManager : MonoBehaviour
         codeWindowOn = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
     }
     public void SaveOptions()
     {
@@ -237,13 +247,19 @@ public class GameManager : MonoBehaviour
         bookPage2.texture = page2;
         book.SetActive(true);
         bookOn = true;
+        firstPersonController.enabled = false;
+        uIPlayerManager.playeranimator.enabled = false;
+        Time.timeScale = 0f;
     }
     public IEnumerator HideBook()
     {
         book.gameObject.SetActive(false);
         firstPersonController.enabled = true;
+        Time.timeScale = 1f;
         yield return new WaitForSeconds(0.1f);
         bookOn = false;
+        firstPersonController.enabled = true;
+        uIPlayerManager.playeranimator.enabled = true;
     }
     public void Shuffle<T>(List<T> list)
     {

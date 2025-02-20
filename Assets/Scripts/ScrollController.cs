@@ -1,10 +1,13 @@
+using System.IO;
 using TMPro;
 using UnityEngine;
 
 public class ScrollController : MonoBehaviour
 {
-    public TextAsset scrollTextFile;
+    private string scrollTextFile;
     private Camera playerCamera;
+    private string text;
+    public int hintID;
     public GameManager gameManager;
     public GameObject scroll;
     public TextMeshProUGUI scrollTextTMP;
@@ -15,6 +18,8 @@ public class ScrollController : MonoBehaviour
         playerCamera = Camera.main;
         scroll.gameObject.SetActive(false);
         elderScroll.SetActive(false);
+        scrollTextFile = Path.Combine(Application.streamingAssetsPath, "Texts","Hints", $"Hint{hintID}.txt");
+        text = File.ReadAllText(scrollTextFile);
     }
     private void Update()
     {
@@ -25,7 +30,7 @@ public class ScrollController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E) && gameManager.firstPersonController.enabled)
                 {
-                    gameManager.ShowScroll(scroll, scrollTextTMP,scrollTextFile.text);
+                    gameManager.ShowScroll(scroll, scrollTextTMP,text);
                     elderScroll.gameObject.SetActive(true);
                 }
                 if(Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled)

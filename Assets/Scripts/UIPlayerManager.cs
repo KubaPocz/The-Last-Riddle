@@ -30,8 +30,10 @@ public class UIPlayerManager : MonoBehaviour
     {
         playerCamera = Camera.main;
         firstPersonController = GetComponent<FirstPersonController>();
-        dialogGraczText = File.ReadAllLines(@"Library\Dialogi\Player.txt");
-        dialogCharacterText = File.ReadAllLines(@"Library\Dialogi\Character.txt");
+        string dialogPlayerFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Dialogi", "Player.txt");
+        dialogGraczText = File.ReadAllLines(dialogPlayerFilePath);
+        string dialogCharacterFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Dialogi", "Character.txt");
+        dialogCharacterText = File.ReadAllLines(dialogCharacterFilePath);
         dialog.SetActive(false);
     }
     void Update()

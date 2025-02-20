@@ -19,8 +19,6 @@ public class BookController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    gameManager.firstPersonController.enabled = false;
-                    gameManager.uIPlayerManager.playeranimator.enabled = false;
                     gameManager.ShowBook(gameManager.przepisyImage[hit.collider.gameObject.GetComponent<BookController>().page1index], gameManager.przepisyImage[hit.collider.gameObject.GetComponent<BookController>().page2index]);
                 }
                 if (Input.GetKeyDown(KeyCode.Escape))

@@ -6,15 +6,16 @@ public class BeginningScroll : MonoBehaviour
 {
     private Camera playerCamera;
     private GameManager gameManager;
+    private string instructions;
 
     public GameObject scroll;
     public TextMeshProUGUI scrollText;
-    public string instructions;
     private void Start()
     {
         playerCamera = Camera.main;
         gameManager = FindAnyObjectByType<GameManager>();
-        instructions = File.ReadAllText(@"Assets\Texts\Scrolls\Notes\Instructions.txt");
+        string instrictionsFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Scrolls", "Notes", "Instructions.txt");
+        instructions = File.ReadAllText(instrictionsFilePath);
     }
 
     private void Update()

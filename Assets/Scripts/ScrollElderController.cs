@@ -35,8 +35,8 @@ public class ScrollElderController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E) && gameManager.firstPersonController.enabled)
                 {
                     scrollElderImage.sprite = scrollNumber;
+                    gameManager.UpdateCodeText(codeID-1);
                     gameManager.ShowScrollElder(elderScroll, scrollElderTextTMP, gameManager.code[codeID-1]);
-                    gameManager.UpdateCodeText(codeID);
                 }
                 if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled)
                 {
