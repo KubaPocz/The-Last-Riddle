@@ -35,7 +35,7 @@ public class DoorController : MonoBehaviour
                     }
                     else if(gameObject.name != "Door_Middle_Exit")
                     {
-                        gameManager.error.text = "Drzwi zamkniête";
+                        gameManager.error.text = LocalizationManager.Instance.GetText("DoorClosedInfo");
                         StartCoroutine(gameManager.ClearError());
                     }
                 }

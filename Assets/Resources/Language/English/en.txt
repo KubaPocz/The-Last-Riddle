@@ -43,3 +43,6 @@ MainMenu=Main Menu
 Info=The game does not support saves
 SaveInfo=Options saved succesfully!
 BrightnessTip=You shouldn't see this.
+DoorClosedInfo=Door closed
+Me=Me
+Ulric=Ulric

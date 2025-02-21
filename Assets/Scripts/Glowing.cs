@@ -2,38 +2,61 @@ using UnityEngine;
 
 public class GlowEffect : MonoBehaviour
 {
-    private float pulseSpeed = 0.2f;
-    private float maxGlowIntensity = 0.25f;
-    private Color color = Color.white;
-    private Material material;
+    private static float pulseSpeed = 0.3f;
+    private static float maxGlowIntensity = 0.35f;
+    private static Color color = Color.white;
+    private float localGlowTime;
+
+    private Material[] materials;
     private int emissionID;
 
     void Start()
     {
         Renderer renderer = GetComponent<Renderer>();
 
-        if (renderer != null)
+        if (renderer != null && gameObject.CompareTag("Interactable"))
         {
-            material = renderer.material;
+            Material[] originalMaterials = renderer.sharedMaterials;
+            materials = new Material[originalMaterials.Length];
 
-            // Upewnij siê, ¿e Emission jest aktywne
-            material.EnableKeyword("_EMISSION");
-
-            // Pobieramy ID w³aœciwoœci EmissionColor
             emissionID = Shader.PropertyToID("_EmissionColor");
+
+            bool changed = false;
+
+            for (int i = 0; i < originalMaterials.Length; i++)
+            {
+                if (!originalMaterials[i].name.Contains("Outline"))
+                {
+                    materials[i] = new Material(originalMaterials[i]);
+                    materials[i].EnableKeyword("_EMISSION");
+                    changed = true;
+                }
+                else
+                {
+                    materials[i] = originalMaterials[i];
+                }
+            }
+
+            if (changed)
+            {
+                renderer.materials = materials;
+            }
         }
     }
 
     void Update()
     {
-        if (material != null)
-        {
-            // Tworzenie efektu pulsuj¹cej poœwiaty
-            float glowIntensity = Mathf.PingPong(Time.time * pulseSpeed, maxGlowIntensity);
-            Color emissionColor = color * glowIntensity;
+        if (materials == null || !gameObject.CompareTag("Interactable")) return;
 
-            // Ustawienie tylko jasnoœci Emission, bez zmiany tekstury
-            material.SetColor(emissionID, emissionColor);
+        localGlowTime = Mathf.PingPong(Time.time * pulseSpeed, maxGlowIntensity);
+        Color emissionColor = color * localGlowTime;
+
+        foreach (var mat in materials)
+        {
+            if (!mat.name.Contains("Outline"))
+            {
+                mat.SetColor(emissionID, emissionColor);
+            }
         }
     }
 }

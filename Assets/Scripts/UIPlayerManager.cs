@@ -23,19 +23,29 @@ public class UIPlayerManager : MonoBehaviour
     private int dialogCharacterIndex = 0;
     private Coroutine dialogCoroutine;
     public Animator playeranimator;
-    public GameManager gameManager;
+    private GameManager gameManager;
 
 
     void Start()
     {
         playerCamera = Camera.main;
         firstPersonController = GetComponent<FirstPersonController>();
-        //string dialogPlayerFilePath = Path.Combine(Application.streamingAssetsPath, "Texts", "Dialogues", "Player.txt");
         TextAsset dialogPlayerFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Dialogues/Player");
         dialogPlayerText = dialogPlayerFilePath.text.Split("\n");
         TextAsset dialogCharacterFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Dialogues/Character");
         dialogCharacterText = dialogCharacterFilePath.text.Split("\n");
         dialog.SetActive(false);
+        gameManager = FindAnyObjectByType<GameManager>();
+        Debug.Log($"dialogPlayer: {dialogPlayer}");
+        Debug.Log($"dialogCharacter: {dialogCharacter}");
+        Debug.Log($"gameManager: {gameManager}");
+        Debug.Log($"gameManager.przepis: {gameManager.przepis}");
+        Debug.Log($"gameManager.code: {gameManager.code}");
+        Debug.Log($"dialogPlayerText: {dialogPlayerText}");
+        Debug.Log($"dialogCharacterText: {dialogCharacterText}");
+        Debug.Log($"dialogPlayerIndex: {dialogPlayerIndex}");
+        Debug.Log($"dialogCharacterIndex: {dialogCharacterIndex}");
+
     }
     void Update()
     {

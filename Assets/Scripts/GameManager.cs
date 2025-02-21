@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
     public GameObject Cauldron_water;
     public GameObject Cauldron_soup;
     public TextMeshProUGUI error;
+    public TextMeshProUGUI meDialogText;
+    public TextMeshProUGUI ulricDialogText;
     public GameObject staminaBar;
     public GameObject endingPanel;
     public GameObject endingPanelSliding;
@@ -97,6 +99,8 @@ public class GameManager : MonoBehaviour
         Shuffle(codes);
         code = new string[] { codes[0], codes[1], codes[2] };
         codeText.text = LocalizationManager.Instance.GetText("FindInstructions");
+        meDialogText.text = LocalizationManager.Instance.GetText("Me");
+        ulricDialogText.text = LocalizationManager.Instance.GetText("Ulric");
     }
 
     void Update()

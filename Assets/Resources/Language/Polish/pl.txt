@@ -43,3 +43,6 @@ MainMenu=Menu Główne
 Info=Ta gra nie wspiera zapisów
 SaveInfo=Opcje zapisano pomyślnie!
 BrightnessTip=Nie powinieneś tego widzieć.
+DoorClosedInfo=Drzwi zamknięte
+Me=Ja
+Ulric=Ulrik
