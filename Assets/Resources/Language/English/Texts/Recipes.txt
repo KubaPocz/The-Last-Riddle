@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Fabulous Dusk",
+        "description": "A light, tomato-carrot composition with delicate chicken meat. Its warm color evokes the sky at dusk, and the taste is pleasantly sweet and sour.",
+        "ingredients": {
+            "Chicken thigh": 1,
+            "Tomato": 2,
+            "Carrot": 1
+        }
+    },
+    {
+        "name": "Black Ember",
+        "description": "A thick, warming meat and vegetable soup with an intense garlic note. The addition of misty root enhances its deep, slightly bitter taste and gives it a dark color.",
+        "ingredients": {
+            "Steak": 1,
+            "Potato": 2,
+            "Garlic": 1,
+            "Misty root": 1
+        }
+    },
+    {
+        "name": "Crown Essence of Autumn",
+        "description": "A smooth, creamy broth made from autumn vegetables, enhanced with the magical 'water spark of nature,' which gives it a refreshing finish and a delicate glow.",
+        "ingredients": {
+            "Pumpkin": 1,
+            "Potato": 2,
+            "Carrot": 1,
+            "Water spark of nature": 1
+        }
+    },
+    {
+        "name": "Raven Whisper",
+        "description": "A dark, meaty soup full of deep flavor. It is said that the misty root makes the whispers of ravens audible just outside the window after tasting it.",
+        "ingredients": {
+            "Steak": 1,
+            "Chicken thigh": 1,
+            "Misty root": 1
+        }
+    },
+    {
+        "name": "Moonlit Haven",
+        "description": "A delicate, slightly sweet soup with a meaty base. Snake herb adds a subtle, mystical aroma, which is said to brighten the mind in the moonlight.",
+        "ingredients": {
+            "Chicken thigh": 1,
+            "Pumpkin": 1,
+            "Snake herb": 1
+        }
+    },
+    {
+        "name": "Abundance of Amber Valley",
+        "description": "A nutritious, sunny soup with an amber hue. Snake herb gives it a delicate, herbal flavor and is believed to boost immunity in colder days.",
+        "ingredients": {
+            "Pumpkin": 1,
+            "Carrot": 1,
+            "Potato": 2,
+            "Snake herb": 1
+        }
+    },
+    {
+        "name": "Fiery Song",
+        "description": "A bold, slightly spicy combination of meat, vegetables, and magical essence, which intensifies the flavor and gives it a fiery red hue. Perfect for boosting energy before battle.",
+        "ingredients": {
+            "Steak": 1,
+            "Pumpkin": 1,
+            "Tomato": 1,
+            "Garlic": 1,
+            "Water spark of nature": 1
+        }
+    },
+    {
+        "name": "Ruby Sigh",
+        "description": "Intensely red and slightly sweet, with a subtle herbal note from snake herb. A delicate hint of garlic enhances the rich tomato flavor, creating a soup with a ruby glow.",
+        "ingredients": {
+            "Tomato": 2,
+            "Carrot": 1,
+            "Snake herb": 1,
+            "Garlic": 1
+        }
+    },
+    {
+        "name": "Dreamy Mist",
+        "description": "A thick, hearty potato soup with meat. Misty root gives it a milky-gray shade and a slightly drowsy aroma, which is said to help induce deep sleep.",
+        "ingredients": {
+            "Potato": 2,
+            "Steak": 1,
+            "Misty root": 1
+        }
+    },
+    {
+        "name": "Scarlet Comfort",
+        "description": "A clear tomato-based soup, with a slightly sweet taste of carrot and a delicate hint of garlic. It soothes the senses, and its color brings to mind the sunset.",
+        "ingredients": {
+            "Tomato": 2,
+            "Carrot": 1,
+            "Garlic": 1
+        }
+    }
+]

@@ -16,8 +16,19 @@ public class GameManager : MonoBehaviour
     public Animator inventoryAnimator;
     public FirstPersonController firstPersonController;
     public new ParticleSystem particleSystem;
+    [Header("Menu")]
     public GameObject menu;
+    public TextMeshProUGUI menuText;
+    public TextMeshProUGUI optionsText;
+    public TextMeshProUGUI exitText;
+    public TextMeshProUGUI infoText;
+    [Header("Options")]
     public GameObject opcje;
+    public TextMeshProUGUI optionsMainText;
+    public TextMeshProUGUI volumeText;
+    public TextMeshProUGUI brightnessText;
+    public TextMeshProUGUI saveText;
+    public TextMeshProUGUI exitOptionsText;
     public GameObject book;
     [Header ("Book-Page1")]
     public TextMeshProUGUI name1;
@@ -60,7 +71,8 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {      
+    {
+        UpdateMenuLanguage();
         menu.SetActive(false);
         opcje.SetActive(false);
         book.SetActive(false);
@@ -112,6 +124,7 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 0f;
                     firstPersonController.enabled = false;
                     particleSystem.Pause();
+                    UpdateMenuLanguage();
                     menu.SetActive(true);
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
@@ -127,6 +140,7 @@ public class GameManager : MonoBehaviour
                 uIPlayerManager.setTarget = false;
                 if (opcje.activeInHierarchy)
                 {
+                    UpdateMenuLanguage();
                     opcje.SetActive(false);
                     menu.SetActive(true);
                 }
@@ -155,6 +169,17 @@ public class GameManager : MonoBehaviour
         }
         inventoryContent.text = eqText;
     }
+    public void UpdateMenuLanguage()
+    {
+        optionsText.text = LocalizationManager.Instance.GetText("Options");
+        exitText.text = LocalizationManager.Instance.GetText("Exit");
+        infoText.text = LocalizationManager.Instance.GetText("Info");
+        optionsMainText.text = LocalizationManager.Instance.GetText("Options");
+        volumeText.text = LocalizationManager.Instance.GetText("Volume");
+        brightnessText.text = LocalizationManager.Instance.GetText("Brightness");
+        saveText.text = LocalizationManager.Instance.GetText("Save");
+        exitOptionsText.text = LocalizationManager.Instance.GetText("Exit");
+}
     public void ShowOptions()
     {
         menu.SetActive(false);
@@ -240,6 +265,7 @@ public class GameManager : MonoBehaviour
     }
     public void Exit()
     {
+        menu.SetActive(false);
         Destroy(this);
         SceneManager.LoadSceneAsync(0);
     }

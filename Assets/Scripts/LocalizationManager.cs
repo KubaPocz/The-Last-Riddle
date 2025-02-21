@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,20 +9,20 @@ public class LocalizationManager : MonoBehaviour
     public enum Language
     {
         Polish,
-        English,
-        German, // Mo¿esz dodaæ wiêcej jêzyków
-        French
+        English       
     }
 
-    public Language CurrentLanguage = Language.Polish;
+    [NonSerialized]public Language CurrentLanguage;
     private Dictionary<string, string> localizationDictionary = new Dictionary<string, string>();
 
     private void Awake()
     {
+        Enum.TryParse<Language>(PlayerPrefs.GetString("Language"), out CurrentLanguage);
         if (Instance == null)
         {
             Instance = this;
             LoadLocalizationData();
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -42,14 +43,6 @@ public class LocalizationManager : MonoBehaviour
             case Language.English:
                 fileName = "en";
                 folderName = "English";
-                break;
-            case Language.German:
-                fileName = "ger";
-                folderName = "German";
-                break;
-            case Language.French:
-                fileName = "fr";
-                folderName = "French";
                 break;
             default:
                 Debug.LogWarning("Selected language is not supported. Defaulting to English.");
@@ -92,6 +85,14 @@ public class LocalizationManager : MonoBehaviour
             return value;
         }
         return $"[MISSING:{key}]";
+    }
+    public string GetKey(string value)
+    {
+        if(localizationDictionary.TryGetValue(value, out string key))
+        {
+            return key;
+        }
+        return $"[MISSING:{value}]";
     }
 
     public void SetLanguage(Language language)

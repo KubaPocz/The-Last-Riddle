@@ -1,0 +1,17 @@
+Welcome, future royal spy!
+
+You have reached the final trial that will determine your fate.
+You have been locked in the castle dungeons—a place full of mysteries and puzzles.
+Your task is to find the hidden cipher—a three-word password that will open the way to the surface.
+
+The dungeons hold clues, but only a keen eye and sharp wit will lead you to the truth.
+Analyze your surroundings, solve the puzzles, and uncover the cipher that will grant you freedom!
+
+Controls:
+	Movement – WSAD
+	Interact with objects – E
+	Open menu – ESCAPE
+
+Will you unravel the secrets of the dungeon and earn the title of royal spy?
+
+Good luck!
