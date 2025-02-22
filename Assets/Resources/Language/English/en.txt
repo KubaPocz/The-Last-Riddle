@@ -49,3 +49,5 @@ Ulric=Ulric
 EnterCode=Enter Code
 Submit=Submit
 Placeholder=Separate with space
+NoCauldron=You don't have a Cauldron, find it first.
+NoKey=You don't have key

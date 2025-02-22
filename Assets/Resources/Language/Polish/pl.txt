@@ -49,3 +49,5 @@ Ulric=Ulrik
 EnterCode=Wpisz Kod
 Submit=Zatwierdz
 Placeholder=Oddziel spacją
+NoCauldron=Nie masz garnka, najpierw go znajdź
+NoKey=Nie masz klucza!

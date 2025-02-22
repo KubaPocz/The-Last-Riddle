@@ -20,16 +20,16 @@ public class FireplaceController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (gameManager.playerInventory.ContainsKey("Garnek"))
+                    if (gameManager.playerInventory.ContainsKey(LocalizationManager.Instance.GetText("Cauldron")))
                     {
                         gameManager.Cauldron_water.SetActive(true);
-                        gameManager.playerInventory.Remove("Cauldron");
+                        gameManager.playerInventory.Remove(LocalizationManager.Instance.GetText("Cauldron"));
                     }
                     else
                     {
                         if (gameManager.coroutineError != null)
                             StopCoroutine(gameManager.coroutineError);
-                        gameManager.error.text = $"Nie masz garnka, najpierw go znajdü";
+                        gameManager.error.text = LocalizationManager.Instance.GetText("NoCauldron");
                         gameManager.coroutineError = StartCoroutine(gameManager.ClearError());
                     }
                 }

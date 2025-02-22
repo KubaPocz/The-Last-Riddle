@@ -35,7 +35,7 @@ public class LockController : MonoBehaviour
                     }
                     else
                     {
-                        gameManager.error.text = "Nie masz klucza!";
+                        gameManager.error.text = LocalizationManager.Instance.GetText("NoKey");
                         gameManager.ClearError();
                     }
                 }

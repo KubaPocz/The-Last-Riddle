@@ -30,16 +30,19 @@ public class DoorController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (canOpen && !opened)
+                    if (!opened)
                     {
-                        animator.SetTrigger("doorSwitch");
-                        gameManager.soundController.OpenDoor();
-                        opened = true;
-                    }
-                    else if(gameObject.name != "Door_Middle_Exit")
-                    {
-                        gameManager.error.text = LocalizationManager.Instance.GetText("DoorClosedInfo");
-                        StartCoroutine(gameManager.ClearError());
+                        if (canOpen)
+                        {
+                            animator.SetTrigger("doorSwitch");
+                            gameManager.soundController.OpenDoor();
+                            opened = true;
+                        }
+                        else if (gameObject.name != "Door_Middle_Exit")
+                        {
+                            gameManager.error.text = LocalizationManager.Instance.GetText("DoorClosedInfo");
+                            StartCoroutine(gameManager.ClearError());
+                        }
                     }
                 }
             }
