@@ -34,7 +34,7 @@ public class IngredientController : MonoBehaviour
                         {
                             if(gameManager.coroutineError != null)
                                 StopCoroutine(gameManager.coroutineError);
-                            gameManager.error.text = $"Nie mo¿esz wzi¹œæ wiêcej {LocalizationManager.Instance.GetText(ingredientName)}";
+                            gameManager.error.text = $"{LocalizationManager.Instance.GetText("NoMore")} {LocalizationManager.Instance.GetText(ingredientName)}";
                             gameManager.coroutineError = StartCoroutine(gameManager.ClearError());
                         }
                         else
