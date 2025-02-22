@@ -38,11 +38,11 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1.0f;
         if (!PlayerPrefs.HasKey("Volume"))
         {
-            PlayerPrefs.SetFloat("Volume", 0.5f);
+            PlayerPrefs.SetFloat("Volume", 0.15f);
         }
         if (!PlayerPrefs.HasKey("Brightness"))
         {
-            PlayerPrefs.SetFloat("Brightness", 0.3f);
+            PlayerPrefs.SetFloat("Brightness", 0.15f);
         }
         if (!PlayerPrefs.HasKey("Fov"))
         {
@@ -63,7 +63,8 @@ public class MenuManager : MonoBehaviour
     }
     private void Update()
     {
-        audioSource.volume = volume.value;
+        PlayerPrefs.SetFloat("Volume", volume.value);
+        audioSource.volume = PlayerPrefs.GetFloat("Volume");
         RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value)*0.3f;
     }
     public void LoadLanguage()
@@ -79,6 +80,9 @@ public class MenuManager : MonoBehaviour
     }
     public void StartGame()
     {
+        PlayerPrefs.SetFloat("Volume", volume.value);
+        PlayerPrefs.SetFloat("Brightness", brightness.value);
+        PlayerPrefs.SetFloat("Fov", fov.value);
         SceneManager.LoadSceneAsync(1);
     }
     public void QuitGame()

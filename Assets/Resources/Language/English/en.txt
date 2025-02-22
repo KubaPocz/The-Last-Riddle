@@ -46,3 +46,6 @@ BrightnessTip=You shouldn't see this.
 DoorClosedInfo=Door closed
 Me=Me
 Ulric=Ulric
+EnterCode=Enter Code
+Submit=Submit
+Placeholder=Separate with space

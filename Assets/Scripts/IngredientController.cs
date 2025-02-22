@@ -12,10 +12,12 @@ public class IngredientController : MonoBehaviour
     public TextMeshProUGUI inventoryNotifications;
     private Coroutine coroutineNotifications;
     public Animator notificationsAnimator;
+    private GameSoundController soundController;
 
     void Start()
     {
         playerCamera = Camera.main;
+        soundController = FindAnyObjectByType<GameSoundController>();
     }
     void Update()
     {
@@ -40,6 +42,7 @@ public class IngredientController : MonoBehaviour
                             if (coroutineNotifications != null)
                                 StopCoroutine(coroutineNotifications);
                             notificationsAnimator.SetBool("Powiadomienia", true);
+                            soundController.PickUp();
                             coroutineNotifications = StartCoroutine(HideNotifications());
                             gameManager.playerInventory[LocalizationManager.Instance.GetText(ingredientName)] += 1;
                             inventoryNotifications.text += $"+1 {LocalizationManager.Instance.GetText(ingredientName)}\n";
@@ -50,6 +53,7 @@ public class IngredientController : MonoBehaviour
                         if (coroutineNotifications != null)
                             StopCoroutine(coroutineNotifications);
                         notificationsAnimator.SetBool("Powiadomienia", true);
+                        soundController.PickUp();
                         coroutineNotifications = StartCoroutine(HideNotifications());
                         gameManager.playerInventory.Add(LocalizationManager.Instance.GetText(ingredientName), 1);
                         inventoryNotifications.text += $"+1 {LocalizationManager.Instance.GetText(ingredientName)}\n";

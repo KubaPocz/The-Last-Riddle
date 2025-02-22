@@ -8,6 +8,7 @@ public class DoorController : MonoBehaviour
     [NonSerialized] public bool canOpen;
     [NonSerialized] public Animator animator;
     private GameManager gameManager;
+    private bool opened = false;
     private void Awake()
     {
         canOpen = true;
@@ -29,9 +30,11 @@ public class DoorController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (canOpen)
+                    if (canOpen && !opened)
                     {
                         animator.SetTrigger("doorSwitch");
+                        gameManager.soundController.OpenDoor();
+                        opened = true;
                     }
                     else if(gameObject.name != "Door_Middle_Exit")
                     {

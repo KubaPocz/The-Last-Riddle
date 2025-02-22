@@ -46,3 +46,6 @@ BrightnessTip=Nie powinieneś tego widzieć.
 DoorClosedInfo=Drzwi zamknięte
 Me=Ja
 Ulric=Ulrik
+EnterCode=Wpisz Kod
+Submit=Zatwierdz
+Placeholder=Oddziel spacją

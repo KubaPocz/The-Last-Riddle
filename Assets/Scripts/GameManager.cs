@@ -38,12 +38,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI name2;
     public TextMeshProUGUI description2;
     public TextMeshProUGUI ingredients2;
+    [Header("EndCodeWindow")]
+    public TextMeshProUGUI enterCodeText;
+    public TextMeshProUGUI sumbitText;
+    public TextMeshProUGUI placeholderText;
     public bool bookOn = false;
     public bool scrollOn = false;
     public bool codeWindowOn = false;
     public bool ending = false;
-    public Slider glosnosc;
-    public Slider jasnosc;
+    public Slider volume;
+    public Slider brightness;
     public Slider fov;
     public UIPlayerManager uIPlayerManager;
     public List<Przepis> przepisy;
@@ -64,6 +68,7 @@ public class GameManager : MonoBehaviour
     [NonSerialized] public Coroutine coroutineError;
     [NonSerialized] public bool knownRecipe = false;
     [NonSerialized] public List<int> knownCodeID = new List<int>();
+    [NonSerialized] public GameSoundController soundController;
 
     public class Przepis
     {
@@ -71,7 +76,10 @@ public class GameManager : MonoBehaviour
         public string Description { get; set; }
         public Dictionary<string, int> Ingredients { get; set; }
     }
-
+    private void Awake()
+    {
+        soundController = FindAnyObjectByType<GameSoundController>();
+    }
     void Start()
     {
         UpdateMenuLanguage();
@@ -101,6 +109,12 @@ public class GameManager : MonoBehaviour
         codeText.text = LocalizationManager.Instance.GetText("FindInstructions");
         meDialogText.text = LocalizationManager.Instance.GetText("Me");
         ulricDialogText.text = LocalizationManager.Instance.GetText("Ulric");
+        enterCodeText.text = LocalizationManager.Instance.GetText("EnterCode");
+        sumbitText.text = LocalizationManager.Instance.GetText("Submit");
+        placeholderText.text = LocalizationManager.Instance.GetText("Placeholder");
+        volume.value = PlayerPrefs.GetFloat("Volume");
+        brightness.value = PlayerPrefs.GetFloat("Brightness");
+        soundController.UpdateVolume();
     }
 
     void Update()
@@ -119,6 +133,7 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 1f;
                     firstPersonController.enabled = true;
                     particleSystem.Play();
+                    soundController.music.Play();
                     menu.SetActive(false);
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;
@@ -130,6 +145,7 @@ public class GameManager : MonoBehaviour
                     particleSystem.Pause();
                     UpdateMenuLanguage();
                     menu.SetActive(true);
+                    soundController.music.Pause();
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
                 }
@@ -147,17 +163,18 @@ public class GameManager : MonoBehaviour
                     UpdateMenuLanguage();
                     opcje.SetActive(false);
                     menu.SetActive(true);
+                    soundController.music.Pause();
                 }
             }
             else
             {
+                soundController.music.Play();
                 menu.SetActive(false);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 SceneManager.LoadSceneAsync(0);
             }
         }
-        
     }
     public void UpdateInventory()
     {
@@ -193,9 +210,11 @@ public class GameManager : MonoBehaviour
     {
         opcje.SetActive(false);
         menu.SetActive(true);
+        soundController.UpdateVolume();
     }
     public void ShowScroll(GameObject scroll, TextMeshProUGUI scrollText, string text)
     {
+        soundController.OpenScroll();
         scrollOn = true;
         scrollText.text = text;
         scroll.gameObject.SetActive(true);
@@ -212,6 +231,7 @@ public class GameManager : MonoBehaviour
     }
     public void ShowBeginningScroll(GameObject scroll, TextMeshProUGUI scrollText, string text)
     {
+        soundController.OpenScroll();
         scrollOn = true;
         scrollText.text = text;
         scroll.gameObject.SetActive(true);
@@ -228,6 +248,7 @@ public class GameManager : MonoBehaviour
     }
     public void ShowScrollElder(GameObject scroll, TextMeshProUGUI scrollText, string text)
     {
+        soundController.OpenScroll();
         scrollOn = true;
         scrollText.text = text;
         scroll.gameObject.SetActive(true);
@@ -265,7 +286,9 @@ public class GameManager : MonoBehaviour
     public void SaveOptions()
     {
         firstPersonController.fov = fov.value+30;
-        RenderSettings.ambientLight = new Color(jasnosc.value, jasnosc.value, jasnosc.value)*2;
+        RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value) * 0.3f;
+        PlayerPrefs.SetFloat("Volume", volume.value);
+        soundController.UpdateVolume();
     }
     public void Exit()
     {
@@ -275,6 +298,7 @@ public class GameManager : MonoBehaviour
     }
     public void ShowBook(int page1, int page2)
     {
+        soundController.OpenBook();
         name1.text = przepisy[page1].Name;
         description1.text = przepisy[page1].Description;
         ingredients1.text = "";

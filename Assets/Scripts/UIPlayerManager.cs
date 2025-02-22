@@ -36,15 +36,6 @@ public class UIPlayerManager : MonoBehaviour
         dialogCharacterText = dialogCharacterFilePath.text.Split("\n");
         dialog.SetActive(false);
         gameManager = FindAnyObjectByType<GameManager>();
-        Debug.Log($"dialogPlayer: {dialogPlayer}");
-        Debug.Log($"dialogCharacter: {dialogCharacter}");
-        Debug.Log($"gameManager: {gameManager}");
-        Debug.Log($"gameManager.przepis: {gameManager.przepis}");
-        Debug.Log($"gameManager.code: {gameManager.code}");
-        Debug.Log($"dialogPlayerText: {dialogPlayerText}");
-        Debug.Log($"dialogCharacterText: {dialogCharacterText}");
-        Debug.Log($"dialogPlayerIndex: {dialogPlayerIndex}");
-        Debug.Log($"dialogCharacterIndex: {dialogCharacterIndex}");
 
     }
     void Update()

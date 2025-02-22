@@ -29,6 +29,7 @@ public class LockController : MonoBehaviour
                     if (haveKey)
                     {
                         doorController.canOpen = true;
+                        gameManager.soundController.UnlockLock();
                         gameManager.playerInventory.Remove(LocalizationManager.Instance.GetText("DungeonKey"));
                         Destroy(gameObject);
                     }
