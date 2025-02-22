@@ -7,6 +7,7 @@ public class CauldronController : MonoBehaviour
     private void Start()
     {
         playerCamera = Camera.main;
+        gameManager = FindAnyObjectByType<GameManager>();
     }
     void Update()
     {
@@ -41,7 +42,7 @@ public class CauldronController : MonoBehaviour
                     }
                     else
                     {
-                        gameManager.error.text = "Nie masz wszystkich potrzebnych sk³adników";
+                        gameManager.error.text = LocalizationManager.Instance.GetText("NoIngredients");
                         StartCoroutine(gameManager.ClearError());
                     }
                 }

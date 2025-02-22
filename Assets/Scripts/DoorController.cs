@@ -4,7 +4,7 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     private Camera playerCamera;
-    private float maxDistance=10f;
+    private float maxDistance=3f;
     [NonSerialized] public bool canOpen;
     [NonSerialized] public Animator animator;
     private GameManager gameManager;
@@ -37,6 +37,9 @@ public class DoorController : MonoBehaviour
                             animator.SetTrigger("doorSwitch");
                             gameManager.soundController.OpenDoor();
                             opened = true;
+                            this.gameObject.GetComponent<OutlineControler>().enabled = false;
+                            this.gameObject.GetComponent<Outline>().enabled = false;
+                            this.gameObject.tag = "Untagged";
                         }
                         else if (gameObject.name != "Door_Middle_Exit")
                         {

@@ -30,9 +30,10 @@ public class BeginningScroll : MonoBehaviour
                     if (gameManager.firstPersonController.enabled)
                     {
                         gameManager.ShowBeginningScroll(scroll, scrollText, instructions);
-                        if (gameManager.codeText.text.Contains(LocalizationManager.Instance.GetText("FindInstructions")))
+                        if (gameManager.taskText.text.Contains(LocalizationManager.Instance.GetText("FindInstructions")))
                         {
                             gameManager.codeText.text = $"{LocalizationManager.Instance.GetText("Cipher")}: _ _ _";
+                            gameManager.taskText.text = LocalizationManager.Instance.GetText("LearnCode");
                         }
                     }
                     else if (!gameManager.firstPersonController.enabled)

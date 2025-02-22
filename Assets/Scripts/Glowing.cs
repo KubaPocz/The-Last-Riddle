@@ -8,6 +8,7 @@ public class GlowEffect : MonoBehaviour
     private float localGlowTime;
 
     private Material[] materials;
+    private Color[] defaultEmissionColors;
     private int emissionID;
 
     void Start()
@@ -18,6 +19,7 @@ public class GlowEffect : MonoBehaviour
         {
             Material[] originalMaterials = renderer.sharedMaterials;
             materials = new Material[originalMaterials.Length];
+            defaultEmissionColors = new Color[originalMaterials.Length];
 
             emissionID = Shader.PropertyToID("_EmissionColor");
 
@@ -29,6 +31,9 @@ public class GlowEffect : MonoBehaviour
                 {
                     materials[i] = new Material(originalMaterials[i]);
                     materials[i].EnableKeyword("_EMISSION");
+
+                    defaultEmissionColors[i] = materials[i].GetColor(emissionID);
+
                     changed = true;
                 }
                 else
@@ -58,5 +63,22 @@ public class GlowEffect : MonoBehaviour
                 mat.SetColor(emissionID, emissionColor);
             }
         }
+    }
+
+    public void StopGlowing()
+    {
+        if (materials == null) return;
+
+        for (int i = 0; i < materials.Length; i++)
+        {
+            if (!materials[i].name.Contains("Outline"))
+            {
+                materials[i].SetColor(emissionID, Color.black);
+
+                materials[i].DisableKeyword("_EMISSION");
+            }
+        }
+
+        enabled = false;
     }
 }

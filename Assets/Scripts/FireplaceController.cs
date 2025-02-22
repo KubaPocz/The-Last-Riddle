@@ -22,6 +22,8 @@ public class FireplaceController : MonoBehaviour
                 {
                     if (gameManager.playerInventory.ContainsKey(LocalizationManager.Instance.GetText("Cauldron")))
                     {
+                        GetComponent<GlowEffect>().StopGlowing();
+                        this.tag = "Untagged";
                         gameManager.Cauldron_water.SetActive(true);
                         gameManager.playerInventory.Remove(LocalizationManager.Instance.GetText("Cauldron"));
                     }

@@ -52,3 +52,6 @@ Placeholder=Oddziel spacją
 NoCauldron=Nie masz garnka, najpierw go znajdź
 NoKey=Nie masz klucza!
 NoMore=Nie możesz wziąść więcej
+LearnCode=Poznaj kod
+MakeSoup=Ugotuj zupe
+NoIngredients=Nie masz wszystkich potrzebnych składników

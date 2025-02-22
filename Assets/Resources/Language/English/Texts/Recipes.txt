@@ -3,7 +3,7 @@
         "name": "Fabulous Dusk",
         "description": "A light, tomato-carrot composition with delicate chicken meat. Its warm color evokes the sky at dusk, and the taste is pleasantly sweet and sour.",
         "ingredients": {
-            "Chicken thigh": 1,
+            "Chicken Leg": 1,
             "Tomato": 2,
             "Carrot": 1
         }
@@ -15,17 +15,17 @@
             "Steak": 1,
             "Potato": 2,
             "Garlic": 1,
-            "Misty root": 1
+            "Misty Root": 1
         }
     },
     {
         "name": "Crown Essence of Autumn",
-        "description": "A smooth, creamy broth made from autumn vegetables, enhanced with the magical 'water spark of nature,' which gives it a refreshing finish and a delicate glow.",
+        "description": "A smooth, creamy broth made from autumn vegetables, enhanced with the magical 'Water Spark of Nature,' which gives it a refreshing finish and a delicate glow.",
         "ingredients": {
             "Pumpkin": 1,
             "Potato": 2,
             "Carrot": 1,
-            "Water spark of nature": 1
+            "Water Spark of Nature": 1
         }
     },
     {
@@ -33,27 +33,27 @@
         "description": "A dark, meaty soup full of deep flavor. It is said that the misty root makes the whispers of ravens audible just outside the window after tasting it.",
         "ingredients": {
             "Steak": 1,
-            "Chicken thigh": 1,
-            "Misty root": 1
+            "Chicken Leg": 1,
+            "Misty Root": 1
         }
     },
     {
         "name": "Moonlit Haven",
-        "description": "A delicate, slightly sweet soup with a meaty base. Snake herb adds a subtle, mystical aroma, which is said to brighten the mind in the moonlight.",
+        "description": "A delicate, slightly sweet soup with a meaty base. Serpent herb adds a subtle, mystical aroma, which is said to brighten the mind in the moonlight.",
         "ingredients": {
-            "Chicken thigh": 1,
+            "Chicken Leg": 1,
             "Pumpkin": 1,
-            "Snake herb": 1
+            "Serpent Herb": 1
         }
     },
     {
         "name": "Abundance of Amber Valley",
-        "description": "A nutritious, sunny soup with an amber hue. Snake herb gives it a delicate, herbal flavor and is believed to boost immunity in colder days.",
+        "description": "A nutritious, sunny soup with an amber hue. Serpent herb gives it a delicate, herbal flavor and is believed to boost immunity in colder days.",
         "ingredients": {
             "Pumpkin": 1,
             "Carrot": 1,
             "Potato": 2,
-            "Snake herb": 1
+            "Serpent Herb": 1
         }
     },
     {
@@ -64,16 +64,16 @@
             "Pumpkin": 1,
             "Tomato": 1,
             "Garlic": 1,
-            "Water spark of nature": 1
+            "Water Spark of Nature": 1
         }
     },
     {
         "name": "Ruby Sigh",
-        "description": "Intensely red and slightly sweet, with a subtle herbal note from snake herb. A delicate hint of garlic enhances the rich tomato flavor, creating a soup with a ruby glow.",
+        "description": "Intensely red and slightly sweet, with a subtle herbal note from serpent herb. A delicate hint of garlic enhances the rich tomato flavor, creating a soup with a ruby glow.",
         "ingredients": {
             "Tomato": 2,
             "Carrot": 1,
-            "Snake herb": 1,
+            "Serpent Herb": 1,
             "Garlic": 1
         }
     },
@@ -83,7 +83,7 @@
         "ingredients": {
             "Potato": 2,
             "Steak": 1,
-            "Misty root": 1
+            "Misty Root": 1
         }
     },
     {

@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     public GameObject endingPanelSliding;
     public GameObject endingPanelBackground;
     public TextMeshProUGUI codeText;
+    public TextMeshProUGUI taskText;
 
     [NonSerialized] public List<string> codes = new List<string>();
     [NonSerialized] public string[] code;
@@ -106,7 +107,8 @@ public class GameManager : MonoBehaviour
         }
         Shuffle(codes);
         code = new string[] { codes[0], codes[1], codes[2] };
-        codeText.text = LocalizationManager.Instance.GetText("FindInstructions");
+        codeText.text = ""; 
+        taskText.text = LocalizationManager.Instance.GetText("FindInstructions");
         meDialogText.text = LocalizationManager.Instance.GetText("Me");
         ulricDialogText.text = LocalizationManager.Instance.GetText("Ulric");
         enterCodeText.text = LocalizationManager.Instance.GetText("EnterCode");
@@ -119,7 +121,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !uIPlayerManager.dialog.activeInHierarchy)
         {
             UpdateInventory();
             inventoryAnimator.SetBool("Inventory", !inventoryAnimator.GetBool("Inventory"));
@@ -180,16 +182,28 @@ public class GameManager : MonoBehaviour
     {
         string eqText = "";
         inventoryName.text = LocalizationManager.Instance.GetText("Inventory");
-        foreach ( KeyValuePair<string, int> kvp in playerInventory)
+
+        List<string> keysToRemove = new List<string>();
+
+        foreach (var kvp in playerInventory)
         {
-            if (playerInventory[(kvp.Key)] == 0)
+            if (kvp.Value == 0)
             {
-                playerInventory.Remove(kvp.Key);
+                keysToRemove.Add(kvp.Key);
             }
-            eqText += $"{kvp.Key} - {kvp.Value}\n";
+            else
+            {
+                eqText += $"{kvp.Key} - {kvp.Value}\n";
+            }
         }
+        foreach (var key in keysToRemove)
+        {
+            playerInventory.Remove(key);
+        }
+
         inventoryContent.text = eqText;
     }
+
     public void UpdateMenuLanguage()
     {
         optionsText.text = LocalizationManager.Instance.GetText("Options");
@@ -349,7 +363,9 @@ public class GameManager : MonoBehaviour
         ending = true;
         firstPersonController.enabled = false;
         endingPanel.SetActive(true);
-
+        taskText.text = string.Empty;
+        codeText.text = string.Empty;
+        soundController.music.loop = false;
         Animator anim1 = endingPanelBackground.GetComponent<Animator>();
         Animator anim2 = endingPanel.GetComponent<Animator>();
         Animator anim3 = endingPanelSliding.GetComponent<Animator>();
@@ -361,17 +377,18 @@ public class GameManager : MonoBehaviour
     public void UpdateCodeText(int codeID)
     {
         knownCodeID.Add(codeID);
-        codeText.text = $"{LocalizationManager.Instance.GetText("Cipher")}: ";
+        string text = $"{LocalizationManager.Instance.GetText("Cipher")}: ";
         for (int i = 0;i<3;i++)
         {
             if (knownCodeID.Contains(i))
             {
-                codeText.text += code[i]+" ";
+                text += code[i]+" ";
             }
             else
             {
-                codeText.text += "_ ";
+                text += "_ ";
             }
         }
+        codeText.text = text.Replace("\u200B", "");
     }
 }

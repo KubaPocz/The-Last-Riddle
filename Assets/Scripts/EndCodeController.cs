@@ -33,10 +33,6 @@ public class EndCodeController : MonoBehaviour
                     {
                         gameManager.ShowEndCodeWindow(codeWindow);
                     }
-                    else if (!gameManager.firstPersonController.enabled)
-                    {
-                        StartCoroutine(gameManager.HideEndCodeWindow(codeWindow));
-                    }
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.firstPersonController.enabled && gameManager.codeWindowOn)
                 {
@@ -52,14 +48,14 @@ public class EndCodeController : MonoBehaviour
             gameManager.firstPersonController.gameObject.GetComponent<CapsuleCollider>().enabled = false;
             Vector3 direction = end.transform.position - playerCamera.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            playerCamera.transform.rotation = Quaternion.Slerp(playerCamera.transform.rotation, targetRotation, 0.5f* Time.deltaTime);
+            playerCamera.transform.rotation = Quaternion.Slerp(playerCamera.transform.rotation, targetRotation, 0.5f * Time.deltaTime);
             playerCamera.transform.position = Vector3.Lerp(playerCamera.transform.position, end.transform.position, 0.5f * Time.deltaTime);
             if (Vector3.Distance(playerCamera.transform.position, end.transform.position) < 0.5f)
             {
                 playerCamera.transform.position = end.transform.position;
                 gameManager.Ending();
                 Destroy(gameObject);
-            }           
+            }
         }
     }
     public void VerifyCode()

@@ -3,8 +3,8 @@ A few days ago, at a feast hosted by the king, I challenged him to an archery co
 After losing to me, the king ordered me to be locked up as punishment for being better than him.  
 You won’t make it, the king personally locked these bars, and the only key that opens them is in HIS possession.  
 I think I might know something. I heard the guards talking about some kind of cipher. But first, you must do something for me.  
-I haven’t had a warm meal in days. Could you make me some soup? You should be able to find a fireplace somewhere in these dungeons.  
-The recipe for it must be somewhere in these dungeons, just look in the open books.  
+I haven’t had a warm meal in days. Could you make me some soup:
+The recipe for it must be somewhere in these dungeons, just look in the open books. You should also be able to find a fireplace somewhere in these dungeons. 
 I’ll be waiting...  
 Thank you, kind soul.  
 Ah, yes, I remember that the second part of the cipher is:  

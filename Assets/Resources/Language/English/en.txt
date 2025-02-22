@@ -52,3 +52,6 @@ Placeholder=Separate with space
 NoCauldron=You don't have a Cauldron, find it first.
 NoKey=You don't have key
 NoMore=You can't take more
+LearnCode=Learn the code
+MakeSoup=Cook soup
+NoIngredients=You don't have all ingredients

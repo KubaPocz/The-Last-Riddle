@@ -4,6 +4,10 @@ public class SoupController : MonoBehaviour
 {
     private Camera playerCamera;
     public GameManager gameManager;
+    private void Awake()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
     private void Start()
     {
         playerCamera = Camera.main;

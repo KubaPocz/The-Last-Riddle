@@ -1,6 +1,7 @@
 using System.Collections;
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using static OutlineControler;
 
@@ -54,7 +55,7 @@ public class UIPlayerManager : MonoBehaviour
                             ingredientName = hit.collider.gameObject.GetComponent<IngredientController>().ingredientName;
                         }
                         catch { }
-                        interactionText.text = $"{LocalizationManager.Instance.GetText("Take")} {LocalizationManager.Instance.GetText(ingredientName) ?? LocalizationManager.Instance.GetText("Soup")}\n(E)";
+                        interactionText.text = $"{LocalizationManager.Instance.GetText("Take")} {LocalizationManager.Instance.GetText(ingredientName ?? "Soup")}\n(E)";
                         ingredientName = null;
                         break;
                     case interaction.daj:
@@ -68,6 +69,7 @@ public class UIPlayerManager : MonoBehaviour
                             setTarget = true;
                             playeranimator.enabled = false;
                             dialog.SetActive(true);
+                            gameManager.inventoryAnimator.SetBool("Inventory", false);
                         }
                         break;
                     case interaction.otworz:
@@ -85,11 +87,17 @@ public class UIPlayerManager : MonoBehaviour
                     case interaction.uzyj:
                         interactionText.text = $"{LocalizationManager.Instance.GetText("Use")} (E)";
                         break;
+                    default:
+                        interactionText.text = "";
+                        break;
                 }
             }
             else
                 interactionText.text = "";
+
         }
+        else
+            interactionText.text = "";
         if (setTarget)
         {
             Vector3 direction = characterHead.transform.position - playerCamera.transform.position;
@@ -127,18 +135,20 @@ public class UIPlayerManager : MonoBehaviour
                     dialogCharacter.text = "-";
                     for (int i = 0; i < dialogCharacterText[dialogCharacterIndex].Length; i++)
                     {
-                        dialogCharacter.text += dialogCharacterText[dialogCharacterIndex][i];
+                        dialogCharacter.text += dialogCharacterText[dialogCharacterIndex][i].ToString();
                         yield return new WaitForSeconds(0.02f);
                     }
                     if (dialogCharacterIndex == 5)
                     {
-                        dialogCharacter.text += $" {gameManager.przepis.Name}";
+                        dialogCharacter.text += $"\n{gameManager.przepis.Name}";
                         gameManager.knownRecipe = true;
+                        gameManager.taskText.text = $"{LocalizationManager.Instance.GetText("MakeSoup")} {gameManager.przepis.Name}";
                     }
                     if (dialogCharacterIndex == 9)
                     {
-                        dialogCharacter.text += gameManager.code[1].ToUpper();
+                        dialogCharacter.text += $"\n{gameManager.code[1].ToUpper()}";
                         gameManager.UpdateCodeText(1);
+                        gameManager.taskText.text = LocalizationManager.Instance.GetText("LearnCode");
                     }
                     dialogCharacterIndex++;
                 }

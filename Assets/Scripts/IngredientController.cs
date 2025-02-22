@@ -5,7 +5,7 @@ using TMPro;
 public class IngredientController : MonoBehaviour
 {
     private Camera playerCamera;
-    private float maxDistance = 5f;
+    private float maxDistance = 3f;
     public GameManager gameManager;
     public string ingredientName;
     public bool znika;
