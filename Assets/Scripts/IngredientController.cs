@@ -10,14 +10,12 @@ public class IngredientController : MonoBehaviour
     public string ingredientName;
     public bool znika;
     public TextMeshProUGUI inventoryNotifications;
-    private Coroutine coroutineNotifications;
     public Animator notificationsAnimator;
-    private GameSoundController soundController;
+    private Coroutine coroutineNotifications;
 
     void Start()
     {
         playerCamera = Camera.main;
-        soundController = FindAnyObjectByType<GameSoundController>();
     }
     void Update()
     {
@@ -42,8 +40,8 @@ public class IngredientController : MonoBehaviour
                             if (coroutineNotifications != null)
                                 StopCoroutine(coroutineNotifications);
                             notificationsAnimator.SetBool("Powiadomienia", true);
-                            soundController.PickUp();
-                            coroutineNotifications = StartCoroutine(HideNotifications());
+                            gameManager.soundController.PickUp();
+                            coroutineNotifications = StartCoroutine(gameManager.HideNotifications(coroutineNotifications));
                             gameManager.playerInventory[LocalizationManager.Instance.GetText(ingredientName)] += 1;
                             inventoryNotifications.text += $"+1 {LocalizationManager.Instance.GetText(ingredientName)}\n";
                         }
@@ -53,8 +51,8 @@ public class IngredientController : MonoBehaviour
                         if (coroutineNotifications != null)
                             StopCoroutine(coroutineNotifications);
                         notificationsAnimator.SetBool("Powiadomienia", true);
-                        soundController.PickUp();
-                        coroutineNotifications = StartCoroutine(HideNotifications());
+                        gameManager.soundController.PickUp();
+                        coroutineNotifications = StartCoroutine(gameManager.HideNotifications(coroutineNotifications));
                         gameManager.playerInventory.Add(LocalizationManager.Instance.GetText(ingredientName), 1);
                         inventoryNotifications.text += $"+1 {LocalizationManager.Instance.GetText(ingredientName)}\n";
                     }
@@ -69,14 +67,6 @@ public class IngredientController : MonoBehaviour
         }
     }
     
-    IEnumerator HideNotifications()
-    {
-        yield return new WaitForSeconds(3f);
-        notificationsAnimator.SetBool("Powiadomienia", false);
-        yield return new WaitForSeconds(1f);
-        inventoryNotifications.text = "";
-        coroutineNotifications = null;
-    }
     IEnumerator DestroyObject()
     {
         yield return new WaitForSeconds(5f);

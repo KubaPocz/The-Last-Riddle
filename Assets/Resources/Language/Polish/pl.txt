@@ -55,3 +55,4 @@ NoMore=Nie możesz wziąść więcej
 LearnCode=Poznaj kod
 MakeSoup=Ugotuj zupe
 NoIngredients=Nie masz wszystkich potrzebnych składników
+NoRecipe=Nie znasz przepisu

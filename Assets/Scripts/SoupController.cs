@@ -4,6 +4,7 @@ public class SoupController : MonoBehaviour
 {
     private Camera playerCamera;
     public GameManager gameManager;
+    private Animator notificationsAnimator;
     private void Awake()
     {
         gameManager = FindAnyObjectByType<GameManager>();
@@ -21,6 +22,9 @@ public class SoupController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    notificationsAnimator.SetBool("Powiadomienia", true);
+                    gameManager.soundController.PickUp();
+                    StartCoroutine(gameManager.HideNotifications());
                     gameManager.playerInventory.Add(gameManager.przepis.Name, 1);
                     gameObject.SetActive(false);
                 }

@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class CauldronController : MonoBehaviour
 {
     public GameManager gameManager;
     private Camera playerCamera;
+    [NonSerialized] public bool knowRecipe = false;
     private void Start()
     {
         playerCamera = Camera.main;
@@ -31,7 +33,7 @@ public class CauldronController : MonoBehaviour
                             canCook = true;
                         }
                     }
-                    if (canCook)
+                    if (canCook && gameManager.knownRecipe)
                     {
                         gameManager.Cauldron_water.gameObject.SetActive(false);
                         gameManager.Cauldron_soup.gameObject.SetActive(true);
@@ -40,9 +42,14 @@ public class CauldronController : MonoBehaviour
                             gameManager.playerInventory[skladnik.Key] -= skladnik.Value;
                         }
                     }
-                    else
+                    else if (!canCook && gameManager.knownRecipe)
                     {
                         gameManager.error.text = LocalizationManager.Instance.GetText("NoIngredients");
+                        StartCoroutine(gameManager.ClearError());
+                    }
+                    else
+                    {
+                        gameManager.error.text = LocalizationManager.Instance.GetText("NoRecipe");
                         StartCoroutine(gameManager.ClearError());
                     }
                 }

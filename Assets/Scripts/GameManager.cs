@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using Newtonsoft.Json;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI saveText;
     public TextMeshProUGUI exitOptionsText;
     public GameObject book;
-    [Header ("Book-Page1")]
+    [Header("Book-Page1")]
     public TextMeshProUGUI name1;
     public TextMeshProUGUI description1;
     public TextMeshProUGUI ingredients1;
@@ -62,6 +63,9 @@ public class GameManager : MonoBehaviour
     public GameObject endingPanelBackground;
     public TextMeshProUGUI codeText;
     public TextMeshProUGUI taskText;
+    public TextMeshProUGUI inventoryNotifications;
+    public Animator notificationsAnimator;
+
 
     [NonSerialized] public List<string> codes = new List<string>();
     [NonSerialized] public string[] code;
@@ -95,19 +99,19 @@ public class GameManager : MonoBehaviour
         TextAsset recipesFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Recipes");
         string json = recipesFilePath.text;
         przepisy = JsonConvert.DeserializeObject<List<Przepis>>(json);
-        przepis = przepisy[UnityEngine.Random.Range(0,przepisy.Count)];
+        przepis = przepisy[UnityEngine.Random.Range(0, przepisy.Count)];
         TextAsset codesFilePath = Resources.Load<TextAsset>($"Language/{LocalizationManager.Instance.CurrentLanguage.ToString()}/Texts/Codes");
         string[] codesText = codesFilePath.text.Split("\n");
         foreach (string codeLine in codesText)
         {
-            foreach(string codePart in codeLine.Split(" "))
+            foreach (string codePart in codeLine.Split(" "))
             {
                 codes.Add(codePart);
             }
         }
         Shuffle(codes);
         code = new string[] { codes[0], codes[1], codes[2] };
-        codeText.text = ""; 
+        codeText.text = "";
         taskText.text = LocalizationManager.Instance.GetText("FindInstructions");
         meDialogText.text = LocalizationManager.Instance.GetText("Me");
         ulricDialogText.text = LocalizationManager.Instance.GetText("Ulric");
@@ -214,7 +218,7 @@ public class GameManager : MonoBehaviour
         brightnessText.text = LocalizationManager.Instance.GetText("Brightness");
         saveText.text = LocalizationManager.Instance.GetText("Save");
         exitOptionsText.text = LocalizationManager.Instance.GetText("Exit");
-}
+    }
     public void ShowOptions()
     {
         menu.SetActive(false);
@@ -299,7 +303,7 @@ public class GameManager : MonoBehaviour
     }
     public void SaveOptions()
     {
-        firstPersonController.fov = fov.value+30;
+        firstPersonController.fov = fov.value + 30;
         RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value) * 0.3f;
         PlayerPrefs.SetFloat("Volume", volume.value);
         soundController.UpdateVolume();
@@ -376,19 +380,37 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateCodeText(int codeID)
     {
-        knownCodeID.Add(codeID);
+        if(codeID <=2)
+            knownCodeID.Add(codeID);
         string text = $"{LocalizationManager.Instance.GetText("Cipher")}: ";
-        for (int i = 0;i<3;i++)
+        for (int i = 0; i < 3; i++)
         {
             if (knownCodeID.Contains(i))
             {
-                text += code[i]+" ";
+                text += code[i].Replace("\r", "") + " ";
             }
             else
             {
                 text += "_ ";
             }
         }
-        codeText.text = text.Replace("\u200B", "");
+        codeText.text = text;
+
     }
+    public IEnumerator HideNotifications(Coroutine coroutineNotifications)
+    {
+        yield return new WaitForSeconds(3f);
+        notificationsAnimator.SetBool("Powiadomienia", false);
+        yield return new WaitForSeconds(1f);
+        inventoryNotifications.text = "";
+        coroutineNotifications = null;
+    }
+    public IEnumerator HideNotifications()
+    {
+        yield return new WaitForSeconds(3f);
+        notificationsAnimator.SetBool("Powiadomienia", false);
+        yield return new WaitForSeconds(1f);
+        inventoryNotifications.text = "";
+    }
+
 }

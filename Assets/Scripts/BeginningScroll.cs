@@ -32,7 +32,7 @@ public class BeginningScroll : MonoBehaviour
                         gameManager.ShowBeginningScroll(scroll, scrollText, instructions);
                         if (gameManager.taskText.text.Contains(LocalizationManager.Instance.GetText("FindInstructions")))
                         {
-                            gameManager.codeText.text = $"{LocalizationManager.Instance.GetText("Cipher")}: _ _ _";
+                            gameManager.UpdateCodeText(4);
                             gameManager.taskText.text = LocalizationManager.Instance.GetText("LearnCode");
                         }
                     }
