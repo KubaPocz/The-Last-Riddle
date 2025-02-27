@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
         volume.value = PlayerPrefs.GetFloat("Volume");
         brightness.value = PlayerPrefs.GetFloat("Brightness");
         soundController.UpdateVolume();
+        Debug.Log(soundController);
     }
 
     void Update()
@@ -305,6 +306,7 @@ public class GameManager : MonoBehaviour
     {
         firstPersonController.fov = fov.value + 30;
         RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value) * 0.3f;
+        RenderSettings.ambientIntensity = -4f;
         PlayerPrefs.SetFloat("Volume", volume.value);
         soundController.UpdateVolume();
     }

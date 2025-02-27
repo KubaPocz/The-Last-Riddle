@@ -37620,7 +37620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: enableJump
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: enableZoom

@@ -66,6 +66,8 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.SetFloat("Volume", volume.value);
         audioSource.volume = PlayerPrefs.GetFloat("Volume");
         RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value)*0.3f;
+        RenderSettings.ambientIntensity = -4f;
+
     }
     public void LoadLanguage()
     {
