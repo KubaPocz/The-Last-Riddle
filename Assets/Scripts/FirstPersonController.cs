@@ -274,6 +274,7 @@ public class FirstPersonController : MonoBehaviour
         if (enableJump && Input.GetKeyDown(jumpKey) && isGrounded)
         {
             Jump();
+            Debug.Log("skok");
         }
 
         #endregion
@@ -334,6 +335,11 @@ public class FirstPersonController : MonoBehaviour
 
             isWalking = targetVelocity.magnitude > 0.1f && isGrounded;
         }
+        Debug.Log(isGrounded);
+        if (Physics.Raycast(rb.transform.position, Vector3.down, 1.1f))
+        {
+            rb.AddForce(Vector3.down * 10f, ForceMode.Acceleration);
+        }
     }
     private void LateUpdate()
     {
@@ -369,7 +375,7 @@ public class FirstPersonController : MonoBehaviour
     }
     private void HandleStepOffset()
     {
-        float stepHeight = 0.1f; // Ograniczamy wysokość przeszkód
+        float stepHeight = 0.2f; // Ograniczamy wysokość przeszkód
         float stepRayLower = 0.1f;
         float stepRayUpper = stepHeight + 0.1f;
         float stepSmooth = 0.15f;
@@ -378,6 +384,7 @@ public class FirstPersonController : MonoBehaviour
 
         foreach (Vector3 direction in directions)
         {
+            if (!isGrounded) return;
             Vector3 origin = transform.position + Vector3.up * stepRayLower;
             Vector3 upperOrigin = transform.position + Vector3.up * stepRayUpper;
             Vector3 checkDirection = direction * 0.5f;
@@ -386,12 +393,14 @@ public class FirstPersonController : MonoBehaviour
             {
                 if (!Physics.Raycast(upperOrigin, checkDirection, out RaycastHit hitUpper, 0.5f))
                 {
-                    if (hitLower.normal.y > 0.7f) // Sprawdzamy, czy jest to powierzchnia, po której można chodzić
+                    if (hitLower.normal.y > 0.9f) // Sprawdzamy, czy jest to powierzchnia, po której można chodzić
                     {
                         Vector3 stepUpPosition = new Vector3(rb.position.x, rb.position.y + stepHeight, rb.position.z);
                         rb.position = Vector3.Lerp(rb.position, stepUpPosition, stepSmooth);
+
                         break;
                     }
+
                 }
             }
         }
@@ -401,15 +410,10 @@ public class FirstPersonController : MonoBehaviour
         // Adds force to the player rigidbody to jump
         if (isGrounded)
         {
-            rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
+            rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
         }
 
-        // When crouched and using toggle system, will uncrouch for a jump
-        if (isCrouched && !holdToCrouch)
-        {
-            Crouch();
-        }
     }
 
     private void Crouch()

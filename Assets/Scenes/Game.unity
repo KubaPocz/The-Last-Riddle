@@ -37464,7 +37464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 435220564486317193, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: m_projectionMatrixMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 435220564486317193, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: m_AllowDynamicResolution
@@ -37472,7 +37472,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 449031087012459920, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: m_Drag
-      value: 0.15
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449031087012459920, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 449031087012459920, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 449031087012459920, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: m_ImplicitCom
@@ -37620,7 +37628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: enableJump
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: enableZoom
@@ -37633,6 +37641,22 @@ PrefabInstance:
     - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: enableSprint
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
+      propertyPath: playerCanMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
+      propertyPath: crosshairColor.b
+      value: 0.4811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
+      propertyPath: crosshairColor.g
+      value: 0.4811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
+      propertyPath: crosshairColor.r
+      value: 0.4811321
       objectReference: {fileID: 0}
     - target: {fileID: 9058297870003358882, guid: 048942011f26a4443b70d8a527ff1583, type: 3}
       propertyPath: mouseSensitivity
@@ -62220,7 +62244,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1974575935}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 0.7
+  m_MaxValue: 0.1
   m_WholeNumbers: 0
   m_Value: 0.05
   m_OnValueChanged:

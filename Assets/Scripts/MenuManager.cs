@@ -65,7 +65,7 @@ public class MenuManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Volume", volume.value);
         audioSource.volume = PlayerPrefs.GetFloat("Volume");
-        RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value)*0.3f;
+        RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value) * 3f;
         RenderSettings.ambientIntensity = -4f;
 
     }
@@ -85,6 +85,7 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.SetFloat("Volume", volume.value);
         PlayerPrefs.SetFloat("Brightness", brightness.value);
         PlayerPrefs.SetFloat("Fov", fov.value);
+        PlayerPrefs.Save();
         SceneManager.LoadSceneAsync(1);
     }
     public void QuitGame()
@@ -100,11 +101,10 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.SetFloat("Volume", volume.value);
         PlayerPrefs.SetFloat("Brightness", brightness.value);
         PlayerPrefs.SetFloat("Fov", fov.value);
-        audioSource.volume = PlayerPrefs.GetFloat("Volume");
-        RenderSettings.ambientLight = Color.black + new Color(PlayerPrefs.GetFloat("Brightness"), PlayerPrefs.GetFloat("Brightness"), PlayerPrefs.GetFloat("Brightness"))*0.3f;
-        PlayerPrefs.SetString("Language",languageDropdown.captionText.text);
+        PlayerPrefs.SetString("Language", languageDropdown.captionText.text);
         Enum.TryParse<LocalizationManager.Language>(languageDropdown.captionText.text, out LocalizationManager.Language lang);
         LocalizationManager.Instance.SetLanguage(lang);
+        PlayerPrefs.Save();
         LoadLanguage();
         StartCoroutine(ShowNotification());
     }

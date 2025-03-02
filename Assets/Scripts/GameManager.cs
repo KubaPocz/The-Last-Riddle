@@ -92,7 +92,6 @@ public class GameManager : MonoBehaviour
         opcje.SetActive(false);
         book.SetActive(false);
         endingPanel.SetActive(false);
-        SaveOptions();
         uIPlayerManager.dialog.SetActive(false);
         Cauldron_water.SetActive(false);
         Cauldron_soup.SetActive(false);
@@ -121,7 +120,7 @@ public class GameManager : MonoBehaviour
         volume.value = PlayerPrefs.GetFloat("Volume");
         brightness.value = PlayerPrefs.GetFloat("Brightness");
         soundController.UpdateVolume();
-        Debug.Log(soundController);
+        SaveOptions();
     }
 
     void Update()
@@ -305,9 +304,11 @@ public class GameManager : MonoBehaviour
     public void SaveOptions()
     {
         firstPersonController.fov = fov.value + 30;
-        RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value) * 0.3f;
+        RenderSettings.ambientLight = Color.black + new Color(brightness.value, brightness.value, brightness.value) * 3f;
         RenderSettings.ambientIntensity = -4f;
         PlayerPrefs.SetFloat("Volume", volume.value);
+        PlayerPrefs.SetFloat("Brightness", brightness.value);
+        PlayerPrefs.Save();
         soundController.UpdateVolume();
     }
     public void Exit()
