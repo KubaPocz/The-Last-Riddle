@@ -3,8 +3,11 @@
 **Description**  
 The Last Riddle is an engaging puzzle game created in Unity. The player takes on the role of a character trapped in mysterious underground dungeons and must solve riddles to find a way to the surface.
 
+**Website with gameplay demonstration**  
+https://kubapocz.github.io/The-Last-Riddle/  
+
 **Project Status**  
-🚧 In development.
+🚧 Completed
 
 **Planned Features**  
 🔍 Logical puzzles.  
