@@ -11,6 +11,7 @@ Controls:
 	Movement – WSAD
 	Interact with objects – E
 	Open menu – ESCAPE
+	Open Inventory - TAB
 
 Will you unravel the secrets of the dungeon and earn the title of royal spy?
 

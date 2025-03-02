@@ -11,6 +11,7 @@ Sterowanie:
 	Poruszanie się – WSAD
 	Interakcja z przedmiotami – E
 	Otwieranie menu – ESCAPE
+	Otwarcie ekwipunku - TAB
 
 Czy uda Ci się rozwikłać tajemnicę podziemi i zdobyć tytuł królewskiego szpiega?
 
